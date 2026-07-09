@@ -128,8 +128,13 @@ if (menu) {
 
     <button class="menu-item">📍 Delivery Address</button>
 
-    <button class="menu-item">🤖 AI Assistant</button>
+   <button
+class="menu-item"
+id="assistant-btn">
 
+🤖 AI Assistant
+
+</button>
     <button class="menu-item" id="logout-btn">
 
         🚪 Logout
@@ -138,6 +143,19 @@ if (menu) {
 
     `;
     const logoutBtn = document.getElementById("logout-btn");
+    const assistantBtn =
+document.getElementById("assistant-btn");
+
+if (assistantBtn) {
+
+    assistantBtn.onclick = () => {
+
+        window.location.href =
+        "pages/ai.html";
+
+    };
+
+}
 
 if (logoutBtn) {
 
