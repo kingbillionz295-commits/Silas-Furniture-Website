@@ -13,24 +13,31 @@ import { saveUser, clearUser } from "./session.js";
 // GOOGLE LOGIN
 // ===============================
 export async function loginWithGoogle() {
-  try {
-    const result = await signInWithPopup(auth, googleProvider);
-    saveUser(result.user);
 
-showToast(
-    "Login successful! Welcome back.",
-    "success"
-);
+    try {
 
-setTimeout(() => {
+        const result = await signInWithPopup(auth, googleProvider);
 
-    window.location.href = "../index.html";
+        console.log("✅ Login Success", result.user);
 
-},1000);
-  } catch (error) {
-    console.error("Google Login Error:", error);
-    alert("Google Sign-In failed.");
-  }
+        saveUser(result.user);
+
+        showToast(
+            "Login successful! Welcome back.",
+            "success"
+        );
+
+        // Redirect immediately
+        window.location.replace("../index.html");
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(error.message);
+
+    }
+
 }
 
 // ===============================
