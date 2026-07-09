@@ -1,0 +1,1083 @@
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+background:#0F0F0F;
+color:white;
+}
+
+/* ================= HEADER ================= */
+
+header{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:18px 20px;
+background:rgba(15,15,15,0.9);
+backdrop-filter:blur(10px);
+z-index:1000;
+}
+
+header h1{
+color:#D4AF37;
+font-size:20px;
+white-space:nowrap;
+}
+
+.menu-btn{
+
+background:transparent;
+
+border:none;
+
+outline:none;
+
+box-shadow:none;
+
+padding:0;
+
+font-size:30px;
+
+color:#D4AF37;
+
+cursor:pointer;
+
+transition:.25s;
+
+}
+
+.menu-btn:hover{
+
+transform:scale(1.08);
+
+}
+
+/* ================= HERO ================= */
+
+.hero{
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+padding:20px;
+background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.8)),
+url("https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80");
+background-size:cover;
+background-position:center;
+}
+
+.hero-content{
+max-width:700px;
+}
+.brand-title{
+    font-size:42px;
+    font-weight:800;
+    letter-spacing:0.5px;
+    line-height:1.25;
+    text-align:center;
+}
+
+.brand-subtitle{
+margin-top:10px;
+font-size:18px;
+color:#ccc;
+font-weight:normal;
+}
+
+#hero-text{
+
+width:100%;
+
+max-width:420px;
+
+margin:25px auto;
+
+font-size:18px;
+
+line-height:1.7;
+
+color:#F5F5F5;
+
+text-align:center;
+
+min-height:65px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+transition:opacity .6s ease;
+
+}
+/* BUTTON */
+
+.btn{
+display:inline-block;
+padding:14px 30px;
+background:#D4AF37;
+color:black;
+border-radius:30px;
+text-decoration:none;
+font-weight:bold;
+transition:0.3s;
+}
+
+.btn:hover{
+transform:scale(1.05);
+}
+
+/* ================= SEARCH ================= */
+
+.search-box{
+
+    position:relative;
+
+    width:100%;
+
+    max-width:560px;
+
+}
+
+.search-box input{
+
+    width:100%;
+
+    padding:16px 90px 16px 20px;
+
+    border:2px solid #D4AF37;
+
+    border-radius:40px;
+
+    background:#1B1B1B;
+
+    color:#fff;
+
+    font-size:17px;
+
+    outline:none;
+
+    box-sizing:border-box;
+
+}
+
+#search-btn{
+
+    position:absolute;
+
+    right:22px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    color:#D4AF37;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    user-select:none;
+
+}
+/* ================= PRODUCTS ================= */
+
+.products{
+padding:30px 20px;
+}
+
+.products h2{
+color:#D4AF37;
+margin-bottom:15px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+gap:15px;
+}
+
+.card{
+background:#1A1A1A;
+border-radius:18px;
+overflow:hidden;
+transition:0.3s;
+box-shadow:0 0 10px rgba(0,0,0,0.4);
+}
+
+.card:hover{
+transform:translateY(-8px) scale(1.02);
+box-shadow:0 10px 25px rgba(212,175,55,0.15);
+}
+
+.card img{
+
+width:100%;
+
+height:100%;
+
+display:block;
+
+object-fit:cover;
+
+transition:.35s;
+
+}
+.card h3{
+padding:12px;
+font-size:17px;
+color:#D4AF37;
+}
+/* ================= FOOTER ================= */
+
+footer{
+text-align:center;
+padding:30px;
+color:#888;
+margin-top:30px;
+border-top:1px solid #222;
+}
+/* ==========================================
+PREMIUM HAMBURGER MENU
+========================================== */
+
+#menu-overlay{
+
+position:fixed;
+
+top:0;
+
+left:0;
+
+width:100%;
+
+height:100%;
+
+background:rgba(0,0,0,.45);
+
+display:none;
+
+z-index:999;
+
+}
+
+#menu-overlay.show{
+
+display:block;
+
+}
+
+#side-menu{
+
+position:fixed;
+
+top:0;
+
+left:-320px;
+
+width:300px;
+
+height:100vh;
+
+background:#171717;
+
+box-shadow:5px 0 20px rgba(0,0,0,.35);
+
+transition:left .35s ease;
+
+z-index:1000;
+
+padding-top:20px;
+
+}
+
+#side-menu.open{
+
+left:0;
+
+}
+
+.menu-header{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:20px;
+
+border-bottom:1px solid #2B2B2B;
+
+}
+
+.menu-header h2{
+
+color:#D4AF37;
+
+font-size:20px;
+
+}
+
+#close-menu{
+
+font-size:28px;
+
+cursor:pointer;
+
+color:white;
+
+}
+
+#close-menu:hover{
+
+color:#D4AF37;
+
+}
+
+#side-menu nav{
+
+display:flex;
+
+flex-direction:column;
+
+padding:20px;
+
+}
+
+#side-menu nav a{
+
+text-decoration:none;
+
+color:white;
+
+padding:16px;
+
+border-radius:12px;
+
+margin-bottom:8px;
+
+transition:.3s;
+
+font-size:17px;
+
+}
+
+#side-menu nav a:hover{
+
+background:#D4AF37;
+
+color:#111;
+
+transform:translateX(6px);
+
+}
+/* ===========================
+PREMIUM PRODUCT CARD V1
+=========================== */
+
+.product-media{
+    position:relative;
+    height:320px;
+overflow:hidden;
+}
+
+.order-btn{
+
+    width:100%;
+
+    margin-top:12px;
+
+    padding:12px;
+
+    border:none;
+
+    border-radius:25px;
+
+    background:#D4AF37;
+
+    color:black;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.order-btn:hover{
+
+    transform:scale(1.03);
+
+}
+.product-card{
+
+background:#171717;
+
+border-radius:22px;
+
+overflow:hidden;
+
+box-shadow:0 8px 20px rgba(0,0,0,.35);
+
+}
+
+
+
+.product-media img{
+
+width:100%;
+
+height:100%;
+
+object-fit:cover;
+
+display:block;
+
+}
+
+.floating-actions{
+
+position:absolute;
+
+top:14px;
+
+right:12px;
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+gap:18px;
+
+z-index:5;
+
+}
+
+.action{
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+color:white;
+
+}
+
+.action strong{
+
+font-size:13px;
+
+margin-top:2px;
+
+}
+
+.action small{
+
+font-size:10px;
+
+margin-top:2px;
+
+}
+.wishlist-action{
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+justify-content:center;
+
+}
+
+.wishlist-action small{
+
+font-size:10px;
+
+color:#ddd;
+
+margin-top:4px;
+
+letter-spacing:.3px;
+
+}
+
+.views-counter{
+
+position:absolute;
+
+bottom:12px;
+
+left:12px;
+
+display:flex;
+
+align-items:center;
+
+gap:5px;
+
+padding:6px 10px;
+
+border-radius:25px;
+
+background:rgba(0,0,0,.55);
+
+font-size:12px;
+
+}
+
+.menu-wrapper{
+    margin-top:12px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+.menu-dots{
+
+background:none;
+
+border:none;
+
+color:white;
+
+font-size:22px;
+
+cursor:pointer;
+
+letter-spacing:2px;
+
+}
+
+
+.product-info{
+
+padding:15px;
+
+}
+
+.product-desc{
+
+margin:10px 0 15px;
+
+color:#cfcfcf;
+
+font-size:14px;
+
+line-height:1.5;
+
+}
+.menu-dots{
+
+    width:38px;
+
+    height:38px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:rgba(0,0,0,.35);
+
+    backdrop-filter:blur(8px);
+
+    color:white;
+
+    font-size:20px;
+
+    font-weight:700;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    cursor:pointer;
+
+    transition:.25s ease;
+
+}
+
+.menu-dots:hover{
+
+    background:#D4AF37;
+
+    color:#111;
+
+    transform:scale(1.08);
+
+}
+/* ===========================
+LIKE BUTTON STATES
+=========================== */
+
+.like-action .material-symbols-outlined{
+
+    color:white;
+
+    transition:.25s;
+
+}
+
+.like-action.liked .material-symbols-outlined{
+
+    color:#ff2d55;
+
+}
+/* ==========================
+PREMIUM FLOATING ACTION TRAY
+========================== */
+
+.action-tray{
+
+position:absolute;
+
+left:10px;
+
+right:10px;
+
+bottom:10px;
+
+background:rgba(20,20,20,.92);
+
+backdrop-filter:blur(12px);
+
+border:1px solid rgba(212,175,55,.35);
+
+border-radius:18px;
+
+box-shadow:0 10px 25px rgba(0,0,0,.45);
+
+padding:10px;
+
+display:none;
+
+z-index:150;
+
+}
+
+.action-tray.show{
+
+display:block;
+
+animation:trayUp .25s ease;
+
+}
+
+.tray-header{
+
+display:flex;
+
+justify-content:flex-end;
+
+margin-bottom:8px;
+
+}
+
+.close-tray{
+
+background:none;
+
+border:none;
+
+color:white;
+
+font-size:22px;
+
+cursor:pointer;
+
+}
+
+.close-tray:hover{
+
+color:#D4AF37;
+
+}
+
+.tray-track{
+
+display:flex;
+
+justify-content:space-around;
+
+align-items:center;
+
+gap:12px;
+
+overflow-x:auto;
+
+scrollbar-width:none;
+
+}
+
+.tray-track::-webkit-scrollbar{
+
+display:none;
+
+}
+
+.tray-action{
+
+background:none;
+
+border:none;
+
+color:white;
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+min-width:70px;
+
+cursor:pointer;
+
+transition:.25s;
+
+}
+
+.tray-action:hover{
+
+transform:scale(1.06);
+
+color:#D4AF37;
+
+}
+
+.tray-action .material-symbols-outlined{
+
+font-size:26px;
+
+margin-bottom:5px;
+
+}
+.tray-action .fa-whatsapp{
+
+font-size:26px;
+
+margin-bottom:5px;
+
+line-height:1;
+
+}
+
+.tray-action small{
+
+font-size:11px;
+
+white-space:nowrap;
+
+color:#ddd;
+
+}
+
+.tray-action:hover{
+
+color:#D4AF37;
+
+transform:scale(1.05);
+
+transition:.25s;
+
+}
+/* ===== Action Tray Active ===== */
+
+.action-tray.show{
+
+display:block;
+
+animation:trayUp .25s ease;
+
+}
+
+.product-media.dim img{
+
+filter:brightness(85%);
+
+transition:.25s;
+
+}
+
+@keyframes trayUp{
+
+from{
+
+opacity:0;
+
+transform:translateY(20px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+/* ===========================
+PREMIUM TOAST
+=========================== */
+
+.toast{
+
+position:fixed;
+
+left:50%;
+
+bottom:-100px;
+
+transform:translateX(-50%);
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+padding:14px 22px;
+
+background:rgba(25,25,25,.96);
+
+border:1px solid rgba(212,175,55,.35);
+
+border-radius:18px;
+
+backdrop-filter:blur(12px);
+
+box-shadow:0 10px 30px rgba(0,0,0,.45);
+
+color:white;
+
+font-size:15px;
+
+font-weight:600;
+
+z-index:9999;
+
+transition:bottom .35s ease;
+
+}
+
+.toast.show{
+
+bottom:30px;
+
+}
+
+#toast-icon{
+
+color:#D4AF37;
+
+font-size:22px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+}
+
+#toast-text{
+
+white-space:nowrap;
+
+}
+/* ===========================
+USER AVATAR
+=========================== */
+
+#user-slot{
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+}
+
+.user-avatar{
+
+width:42px;
+
+height:42px;
+
+border-radius:50%;
+
+cursor:pointer;
+
+border:2px solid #D4AF37;
+
+object-fit:cover;
+
+transition:.25s;
+
+}
+
+.user-avatar:hover{
+
+transform:scale(1.08);
+
+}
+/* ===========================
+USER MENU
+=========================== */
+
+.user-menu{
+
+position:absolute;
+
+top:70px;
+
+right:20px;
+
+width:280px;
+
+background:#171717;
+
+border:1px solid rgba(212,175,55,.25);
+
+border-radius:18px;
+
+box-shadow:0 10px 30px rgba(0,0,0,.45);
+
+display:none;
+
+overflow:hidden;
+
+z-index:1200;
+
+}
+
+.user-menu.show{
+
+display:block;
+
+animation:userMenu .25s ease;
+
+}
+
+@keyframes userMenu{
+
+from{
+
+opacity:0;
+
+transform:translateY(-10px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+.menu-profile{
+
+padding:18px;
+
+text-align:center;
+
+}
+
+.menu-profile-pic{
+
+width:70px;
+
+height:70px;
+
+border-radius:50%;
+
+border:3px solid #D4AF37;
+
+object-fit:cover;
+
+margin-bottom:12px;
+
+}
+
+.menu-profile h3{
+
+color:#D4AF37;
+
+margin-bottom:6px;
+
+font-size:18px;
+
+}
+
+.menu-profile strong{
+
+display:block;
+
+font-size:17px;
+
+margin-bottom:5px;
+
+}
+
+.menu-profile p{
+
+font-size:13px;
+
+color:#bfbfbf;
+
+word-break:break-word;
+
+}
+
+.menu-item{
+
+width:100%;
+
+padding:16px 20px;
+
+background:none;
+
+border:none;
+
+color:white;
+
+text-align:left;
+
+font-size:16px;
+
+cursor:pointer;
+
+transition:.25s;
+
+}
+
+.menu-item:hover{
+
+background:#D4AF37;
+
+color:#111;
+
+}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Silas Furniture</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        body{
+            margin:0;
+            background:#0f0f0f;
+            color:white;
+            font-family:Arial,sans-serif;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+        }
+
+        .login-card{
+            width:340px;
+            background:#1a1a1a;
+            border:1px solid #D4AF37;
+            border-radius:18px;
+            padding:35px;
+            text-align:center;
+        }
+
+        h1{
+            color:#D4AF37;
+            margin-bottom:10px;
+        }
+
+        p{
+            color:#cfcfcf;
+        }
+
+        button{
+            margin-top:25px;
+            width:100%;
+            padding:15px;
+            font-size:16px;
+            border:none;
+            border-radius:10px;
+            background:#D4AF37;
+            cursor:pointer;
+            font-weight:bold;
+        }
+
+        button:hover{
+            opacity:.9;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="login-card">
+
+    <h1>Silas Furniture</h1>
+
+    <p>Sign in with Google to continue.</p>
+
+    <button id="googleLoginBtn">
+        🔵 Continue with Google
+    </button>
+
+</div>
+
+<script type="module">
+
+import { loginWithGoogle } from "../scripts/auth.js";
+
+const btn = document.getElementById("googleLoginBtn");
+
+btn.addEventListener("click", loginWithGoogle);
+
+</script>
+
+</body>
+</html>

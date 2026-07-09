@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Silas Furniture Integrated Services</title>
+<link rel="stylesheet"
+href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/comments.css">
+</head>
+
+<body>
+
+<!-- =========================
+HEADER
+========================= -->
+
+<header class="header">
+
+    <button id="menu-btn" class="menu-btn">
+
+        ☰
+
+    </button>
+
+    <h1 class="logo">
+
+        SILAS FURNITURE
+
+    </h1>
+
+<div id="user-slot">
+
+    <!-- Avatar will appear here -->
+
+</div>
+
+<div id="user-menu" class="user-menu">
+
+    <!-- Filled automatically -->
+
+</div>
+</header>
+
+<!-- =========================
+SIDE MENU
+========================= -->
+
+<div id="menu-overlay"></div>
+
+<aside id="side-menu">
+
+    <div class="menu-header">
+
+        <h2>Silas Furniture</h2>
+
+        <span id="close-menu">
+
+            ✕
+
+        </span>
+
+    </div>
+
+  <nav>
+
+    <a href="index.html">
+
+        🏠 Home
+
+    </a>
+
+    <a href="#">
+
+        ℹ About Us
+
+    </a>
+
+    <a href="#" id="live-chat-link">
+
+        💬 Live Chat
+
+    </a>
+
+    <a href="pages/login.html" id="login-link">
+
+        🔑 Login
+
+    </a>
+
+</nav>
+</aside>
+<!-- =========================
+HERO SECTION
+========================= -->
+<section class="hero">
+
+<div class="hero-content">
+
+<h1 class="brand-title">
+
+SILAS<br>
+FURNITURE
+
+</h1>
+
+<h3 class="brand-subtitle">
+
+Integrated Furniture Services
+
+</h3>
+
+<p id="hero-text">
+
+Crafting elegant furniture for modern living...
+
+</p>
+
+<a href="#latest-products" class="btn">
+
+🛋 Browse Furniture
+
+</a>
+
+</div>
+
+</section>
+
+<!-- =========================
+SEARCH SECTION
+========================= -->
+<section class="search-section">
+
+<div class="search-box">
+
+<input
+id="search-input"
+type="text"
+placeholder="Search furniture...">
+
+<span id="search-btn">
+
+Search
+
+</span>
+
+</div>
+
+<p id="search-status"></p>
+
+</section>
+<!-- =========================
+MASTER PRODUCT CARD
+========================= -->
+
+<section class="products">
+
+<h2 class="section-title"></h2>
+<div class="grid">
+
+<div class="product-card">
+
+<div class="product-media">
+
+<img 
+class="product-image"
+src=""
+alt="Product image">
+
+<div class="floating-actions">
+
+<div class="action like-action">
+
+<span class="material-symbols-outlined">
+
+♡
+
+</span>
+<strong>0</strong>
+
+</div>
+
+<div class="action comment-action">
+
+<span class="material-symbols-outlined">chat</span>
+
+<strong>0</strong>
+
+</div>
+
+<div class="action wishlist-action">
+
+<span class="material-symbols-outlined">add</span>
+
+<small>Wishlist</small>
+
+</div>
+
+<div class="menu-wrapper">
+
+    <button class="menu-dots">
+
+        <span class="material-symbols-outlined">
+            more_horiz
+        </span>
+
+    </button>
+
+</div>
+</div>
+<div class="action-tray">
+
+    <button class="close-tray">
+
+        <span class="material-symbols-outlined">
+            close
+        </span>
+
+    </button>
+
+    <div class="tray-track">
+
+        <button class="tray-action share-action">
+
+            <span class="material-symbols-outlined">
+                forward
+            </span>
+
+            <small>Share</small>
+
+        </button>
+
+        <button class="tray-action copy-action">
+
+            <span class="material-symbols-outlined">
+                link
+            </span>
+
+            <small>Copy Link</small>
+
+        </button>
+
+        <button class="tray-action whatsapp-action">
+
+            <i class="fa-brands fa-whatsapp"></i>
+
+            <small>WhatsApp</small>
+
+        </button>
+
+        <button class="tray-action call-action">
+
+            <span class="material-symbols-outlined">
+                call
+            </span>
+
+            <small>Call</small>
+
+        </button>
+
+    </div>
+
+</div>
+<div class="views-counter">
+
+<span class="material-symbols-outlined">
+
+visibility
+
+</span>
+
+<span>0</span>
+
+</div>
+
+</div>
+
+<div class="product-info">
+
+<h3 class="product-title"></h3>
+
+<p class="product-desc"></p>
+
+<button class="order-btn">
+
+Order
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- =========================
+LATEST PRODUCTS
+========================= -->
+
+<section class="products" id="latest-products">
+
+<h2>Latest Products</h2>
+
+<div class="grid" id="products-grid">
+
+<!-- Product cards will be loaded here automatically -->
+
+</div>
+
+</section>
+<!-- =========================
+FOOTER
+========================= -->
+<footer>
+
+<p>
+
+© 2026 Silas Furniture Integrated Services
+
+</p>
+
+</footer>
+
+<!-- =========================
+SCRIPT
+========================= -->
+<script type="module" src="scripts/home.js"></script>
+<!-- =========================
+COMMENTS PANEL
+========================= -->
+
+<div id="comments-panel" class="comments-panel">
+
+<div class="comments-preview">
+
+    <div id="comment-preview-media">
+
+        <!-- Product Image or Video will appear here -->
+
+    </div>
+
+    <div class="preview-info">
+
+        <h3 id="comment-product-name"></h3>
+
+        <p id="comment-product-description"></p>
+
+    </div>
+
+</div>
+<div class="comments-header">
+
+    <h2>Comments</h2>
+
+    <button id="close-comments">&times;</button>
+
+</div>
+
+    <div class="comments-body">
+
+        <div class="no-comments">
+
+            <span class="material-symbols-outlined">
+chat
+            </span>
+
+            <h3>No comments yet</h3>
+
+            <p>Be the first to share your experience.</p>
+
+        </div>
+
+    </div>
+
+    <div class="comment-input-area">
+
+        <input
+        type="text"
+        id="comment-input"
+        placeholder="Write a comment...">
+
+        <button
+        id="send-comment"
+        title="Send">
+
+            <span class="material-symbols-outlined">
+send
+            </span>
+
+        </button>
+
+    </div>
+
+</div>
+<!-- PREMIUM TOAST -->
+
+<div id="toast" class="toast">
+
+    <span id="toast-icon">
+
+        ✔
+
+    </span>
+
+    <span id="toast-text">
+
+        Success
+
+    </span>
+
+</div>
+
+</body>
+
+</html>
