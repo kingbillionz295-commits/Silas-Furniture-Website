@@ -7,7 +7,11 @@ import { getUser } from "./session.js";
 
 const welcomeTitle = document.getElementById("welcome-title");
 const welcomeContainer = document.getElementById("welcome-message");
+if (!welcomeTitle || !welcomeContainer) {
 
+    console.warn("AI page elements not found.");
+
+}
 
 const user = getUser();
 console.log("MGE User:", user);
@@ -97,13 +101,10 @@ I'm happy to see you again.
 How may I assist you today?`;
 
 }
-document.addEventListener("DOMContentLoaded", () => {
-
-    createWelcomeBubble();
-
-});
-
+createWelcomeBubble();
 function createWelcomeBubble(){
+
+    if(!welcomeContainer) return;
 
     welcomeContainer.innerHTML = "";
 
@@ -143,9 +144,14 @@ function typeWriter(element, text){
 // BACK BUTTON
 // =========================
 
-document.getElementById("back-btn")
-.addEventListener("click",()=>{
+const backBtn = document.getElementById("back-btn");
 
-history.back();
+if (backBtn) {
 
-});
+    backBtn.addEventListener("click", () => {
+
+        history.back();
+
+    });
+
+}

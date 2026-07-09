@@ -1,3 +1,4 @@
+import "./auth.js";
 import { showToast } from "./toast.js";
 
 // ================================
