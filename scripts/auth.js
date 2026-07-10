@@ -22,14 +22,7 @@ export async function loginWithGoogle() {
 
         saveUser(result.user);
 
-        showToast(
-            "Login successful! Welcome back.",
-            "success"
-        );
-
-        // Redirect immediately
-        window.location.replace("../index.html");
-
+        
     } catch (error) {
 
         console.error(error);
@@ -54,12 +47,7 @@ export async function logout() {
         "Logged out successfully."
     );
 
-    setTimeout(() => {
-
-        window.location.href = "../index.html";
-
-    },500);
-
+    window.location.href = "/Silas-Furniture-Website/index.html";
 }
 // ===============================
 // KEEP SESSION UPDATED
@@ -70,6 +58,22 @@ onAuthStateChanged(auth, (user) => {
   const loginLink = document.getElementById("login-link");
 
   if (user) {
+      const onLoginPage =
+window.location.pathname.includes("login.html");
+
+if (onLoginPage) {
+
+    sessionStorage.setItem(
+        "loginSuccess",
+        `Welcome back, ${user.displayName}!`
+    );
+
+    window.location.href =
+    "/Silas-Furniture-Website/index.html";
+
+    return;
+
+}
 
     saveUser(user);
 if (loginLink) {
@@ -151,7 +155,7 @@ if (assistantBtn) {
     assistantBtn.onclick = () => {
 
         window.location.href =
-        "pages/ai.html";
+"/Silas-Furniture-Website/pages/ai.html";
 
     };
 
