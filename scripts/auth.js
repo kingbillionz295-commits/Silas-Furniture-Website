@@ -22,7 +22,13 @@ export async function loginWithGoogle() {
 
         saveUser(result.user);
 
-        
+        sessionStorage.setItem(
+            "loginSuccess",
+            `Welcome back, ${result.user.displayName}!`
+        );
+
+        window.location.replace("../index.html");
+
     } catch (error) {
 
         console.error(error);
@@ -32,7 +38,6 @@ export async function loginWithGoogle() {
     }
 
 }
-
 // ===============================
 // LOGOUT
 // ===============================
