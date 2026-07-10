@@ -163,7 +163,29 @@ if (assistantBtn) {
 
 if (logoutBtn) {
 
-    logoutBtn.onclick = logout;
+    logoutBtn.onclick = () => {
+
+        const modal = document.getElementById("logout-modal");
+
+        const photo = document.getElementById("logout-photo");
+
+        const name = document.getElementById("logout-name");
+
+        const email = document.getElementById("logout-email");
+
+        if (photo) photo.src = user.photoURL;
+
+        if (name) name.textContent = user.displayName;
+
+        if (email) email.textContent = user.email;
+
+        if (modal) {
+
+            modal.classList.add("show");
+
+        }
+
+    };
 
 }
     const avatar = document.getElementById("user-avatar");
@@ -217,3 +239,34 @@ document.addEventListener("click", function () {
     }
 
 });
+// ===============================
+// LOGOUT MODAL
+// ===============================
+
+const logoutModal = document.getElementById("logout-modal");
+
+const logoutYes = document.getElementById("logout-yes");
+
+const logoutNo = document.getElementById("logout-no");
+
+if (logoutNo) {
+
+    logoutNo.onclick = () => {
+
+        logoutModal.classList.remove("show");
+
+    };
+
+}
+
+if (logoutYes) {
+
+    logoutYes.onclick = async () => {
+
+        logoutModal.classList.remove("show");
+
+        await logout();
+
+    };
+
+}
