@@ -228,15 +228,21 @@ if (avatar) {
 // CLOSE USER MENU
 // ===============================
 
-document.addEventListener("click", function () {
+document.addEventListener("click", function (e) {
 
     const menu = document.getElementById("user-menu");
 
-    if (menu) {
+    const avatar = document.getElementById("user-avatar");
 
-        menu.classList.remove("show");
+    if (!menu) return;
 
-    }
+    // Don't close when clicking inside the menu
+    if (menu.contains(e.target)) return;
+
+    // Don't close when clicking the avatar
+    if (avatar && avatar.contains(e.target)) return;
+
+    menu.classList.remove("show");
 
 });
 // ===============================
