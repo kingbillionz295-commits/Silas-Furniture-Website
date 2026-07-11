@@ -12,7 +12,7 @@ import { saveUser, clearUser } from "./session.js";
 // ===============================
 // GOOGLE LOGIN
 // ===============================
-export async function loginWithGoogle() {
+export async function loginWithGoogle(isAdmin = false) {
 
     try {
 
@@ -22,12 +22,22 @@ export async function loginWithGoogle() {
 
         saveUser(result.user);
 
-        sessionStorage.setItem(
-            "loginSuccess",
-            `Welcome back, ${result.user.displayName}!`
-        );
+        if (isAdmin) {
 
-        window.location.replace("../index.html");
+            sessionStorage.setItem("adminLogin", "true");
+
+            window.location.replace("../admin/admin.html");
+
+        } else {
+
+            sessionStorage.setItem(
+                "loginSuccess",
+                "Welcome back, " + result.user.displayName + "!"
+            );
+
+            window.location.replace("../index.html");
+
+        }
 
     } catch (error) {
 
