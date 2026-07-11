@@ -12,7 +12,7 @@ import { saveUser, clearUser } from "./session.js";
 // ===============================
 // GOOGLE LOGIN
 // ===============================
-export async function loginWithGoogle(isAdmin = false) {
+export async function loginWithGoogle() {
 
     try {
 
@@ -22,22 +22,12 @@ export async function loginWithGoogle(isAdmin = false) {
 
         saveUser(result.user);
 
-        if (isAdmin) {
+        sessionStorage.setItem(
+    "loginSuccess",
+    "Welcome back, " + result.user.displayName + "!"
+);
 
-            sessionStorage.setItem("adminLogin", "true");
-
-            window.location.replace("../admin/admin.html");
-
-        } else {
-
-            sessionStorage.setItem(
-                "loginSuccess",
-                "Welcome back, " + result.user.displayName + "!"
-            );
-
-            window.location.replace("../index.html");
-
-        }
+window.location.replace("/Silas-Furniture-Website/index.html");
 
     } catch (error) {
 
