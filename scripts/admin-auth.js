@@ -39,14 +39,19 @@ onAuthStateChanged(auth, async (user) => {
 
     }
 
-    const adminName =
-    document.getElementById("admin-name");
+    const adminName = document.getElementById("admin-name");
+const dashboard = document.getElementById("dashboard-content");
 
-    if (adminName) {
+if (adminName) {
 
-        adminName.textContent =
-        `Welcome ${user.displayName}`;
+    adminName.textContent =
+    `Welcome ${user.displayName}`;
 
-    }
+}
 
+if (dashboard) {
+
+    dashboard.style.display = "block";
+
+}
 });
