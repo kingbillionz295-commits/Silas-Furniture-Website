@@ -87,10 +87,17 @@ onAuthStateChanged(auth, (user) => {
   const loginLink = document.getElementById("login-link");
 
   if (user) {
-      const onLoginPage =
-window.location.pathname.includes("login.html");
+      const path = window.location.pathname;
 
-if (onLoginPage) {
+// Customer login page only
+const onCustomerLogin =
+path.endsWith("/pages/login.html");
+
+// Admin login page only
+const onAdminLogin =
+path.endsWith("/admin/admin-login.html");
+
+if (onCustomerLogin) {
 
     sessionStorage.setItem(
         "loginSuccess",
@@ -104,6 +111,13 @@ if (onLoginPage) {
 
 }
 
+// Don't redirect admins here.
+// admin-auth.js will decide what happens.
+if (onAdminLogin) {
+
+    return;
+
+}
     saveUser(user);
 if (loginLink) {
 
