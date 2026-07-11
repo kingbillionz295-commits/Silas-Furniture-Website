@@ -36,6 +36,7 @@ window.location.replace("/Silas-Furniture-Website/index.html");
         alert(error.message);
 
     }
+}
 // ===============================
 // ADMIN GOOGLE LOGIN
 // ===============================
@@ -60,7 +61,7 @@ export async function loginAdmin() {
     }
 
 }
-}
+
 // ===============================
 // LOGOUT
 // ===============================
