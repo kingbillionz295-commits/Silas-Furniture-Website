@@ -205,18 +205,21 @@ const overlay = document.getElementById("menu-overlay");
 
 const closeBtn = document.getElementById("close-menu");
 
-menuBtn.addEventListener("click",()=>{
+if (menuBtn && sideMenu && overlay && closeBtn) {
 
+    menuBtn.addEventListener("click", () => {
 
-    sideMenu.classList.add("open");
+        sideMenu.classList.add("open");
 
-    overlay.classList.add("show");
+        overlay.classList.add("show");
 
-});
+    });
 
-closeBtn.addEventListener("click",closeMenu);
+    closeBtn.addEventListener("click", closeMenu);
 
-overlay.addEventListener("click",closeMenu);
+    overlay.addEventListener("click", closeMenu);
+
+}
 
 function closeMenu(){
 
