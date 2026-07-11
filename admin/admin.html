@@ -5,8 +5,7 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Silas Furniture Admin</title>
 
@@ -20,90 +19,121 @@ href="../css/admin.css">
 
 <body>
 
+<!-- ========================= -->
+<!-- Loading Screen -->
+<!-- ========================= -->
+
+<div id="admin-loading">
+
+<div class="loading-box">
+
+<div class="spinner"></div>
+
+<h2>Verifying Administrator...</h2>
+
+<p>
+
+Please wait while we securely verify your credentials.
+
+</p>
+
+</div>
+
+</div>
+
+<!-- ========================= -->
+<!-- Dashboard -->
+<!-- ========================= -->
+
+<div id="admin-dashboard" hidden>
+
 <div class="admin-container">
 
-    <!-- Sidebar -->
+<!-- Sidebar -->
 
-    <aside class="sidebar">
+<aside class="sidebar">
 
-        <h2 class="logo">
+<h2 class="logo">
 
-            SILAS ADMIN
+SILAS ADMIN
 
-        </h2>
+</h2>
 
-        <nav>
+<nav>
 
-            <button class="nav-btn active">
+<button class="nav-btn active">
 
-                📊 Dashboard
+📊 Dashboard
 
-            </button>
+</button>
 
-            <button class="nav-btn">
+<button class="nav-btn">
 
-                📦 Products
+📦 Products
 
-            </button>
+</button>
 
-            <button class="nav-btn">
+<button class="nav-btn">
 
-                🗑 Trash
+🗑 Trash
 
-            </button>
+</button>
 
-            <button class="nav-btn">
+<button class="nav-btn">
 
-                🤖 AI Control
+🤖 AI Control
 
-            </button>
+</button>
 
-            <button class="nav-btn">
+<button class="nav-btn">
 
-                💬 Live Chat
+💬 Live Chat
 
-            </button>
+</button>
 
-            <button class="nav-btn">
+<button class="nav-btn">
 
-                📢 Broadcast
+📢 Broadcast
 
-            </button>
+</button>
 
-            <button class="nav-btn">
+<button class="nav-btn">
 
-                📬 Messages
+📬 Messages
 
-            </button>
+</button>
 
-            <button class="nav-btn">
+<button class="nav-btn">
 
-                📈 Analytics
+📈 Analytics
 
-            </button>
+</button>
 
-            <button class="nav-btn">
+<button class="nav-btn">
 
-                👥 Users
+👥 Users
 
-            </button>
+</button>
 
-            <button class="nav-btn">
+<button class="nav-btn">
 
-                ⚙ Settings
+🛡 Security Logs
 
-            </button>
+</button>
 
-        </nav>
+<button class="nav-btn">
 
-    </aside>
+⚙ Settings
 
-    <!-- Main Area -->
+</button>
 
-   <main class="content">
+</nav>
 
+</aside>
 
-<div id="dashboard-content">
+<!-- Main Content -->
+
+<main class="content">
 
 <h1>
 
@@ -153,14 +183,17 @@ Loading...
 
 </div>
 
+</main>
+
 </div>
 
-</main>
 </div>
 
 <script src="../scripts/admin.js"></script>
+
 <script type="module"
 src="../scripts/admin-auth.js"></script>
+
 </body>
 
 </html>
