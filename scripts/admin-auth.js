@@ -1,31 +1,38 @@
 import { auth, db } from "./firebase.js";
 
 import {
-    onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+onAuthStateChanged
+}
+from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
 
 import {
-    doc,
-    getDoc
-} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+doc,
+getDoc
+}
+from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+import {
+loadAdminProfile
+}
+from "./admin-dashboard.js";
 
 // =====================================
-// ADMIN AUTHENTICATION V2
+// ADMIN AUTHENTICATION
 // =====================================
 
-const loading = document.getElementById("admin-loading");
+const loading =
+document.getElementById("admin-loading");
 
-const dashboard = document.getElementById("admin-dashboard");
+const dashboard =
+document.getElementById("admin-dashboard");
 
-const adminName = document.getElementById("admin-name");
+onAuthStateChanged(auth, async (user)=>{
 
-onAuthStateChanged(auth, async (user) => {
+    // -----------------------------
+    // NOT LOGGED IN
+    // -----------------------------
 
-    // =====================================
-    // USER NOT LOGGED IN
-    // =====================================
-
-    if (!user) {
+    if(!user){
 
         window.location.replace("admin-login.html");
 
@@ -33,82 +40,87 @@ onAuthStateChanged(auth, async (user) => {
 
     }
 
-    try {
+    try{
 
-        // =====================================
-        // CHECK ADMINS COLLECTION
-        // =====================================
+        const adminRef =
+        doc(db,"admins",user.email);
 
-        const adminRef = doc(db, "admins", user.email);
+        const adminSnap =
+        await getDoc(adminRef);
 
-        const adminSnap = await getDoc(adminRef);
+        // -----------------------------
+        // NOT AN ADMIN
+        // -----------------------------
 
-        // =====================================
-        // EMAIL NOT FOUND
-        // =====================================
-
-        if (!adminSnap.exists()) {
+        if(!adminSnap.exists()){
 
             sessionStorage.setItem(
                 "deniedEmail",
                 user.email
             );
 
-            window.location.replace("access-denied.html");
+            window.location.replace(
+                "access-denied.html"
+            );
 
             return;
 
         }
 
-        const admin = adminSnap.data();
+        const admin =
+        adminSnap.data();
 
-        // =====================================
-        // ACCOUNT DISABLED
-        // =====================================
+        // -----------------------------
+        // DISABLED ADMIN
+        // -----------------------------
 
-        if (admin.active !== true) {
+        if(admin.active !== true){
 
             sessionStorage.setItem(
                 "deniedEmail",
                 user.email
             );
 
-            window.location.replace("access-denied.html");
+            window.location.replace(
+                "access-denied.html"
+            );
 
             return;
 
         }
 
-        // =====================================
+        // -----------------------------
         // VERIFIED ADMIN
-        // =====================================
+        // -----------------------------
 
-        if (adminName) {
+        if(loading){
 
-            adminName.textContent =
-            `Welcome ${user.displayName}`;
-
-        }
-
-        if (loading) {
-
-            loading.style.display = "none";
+            loading.style.display="none";
 
         }
 
-        if (dashboard) {
+        if(dashboard){
 
-            dashboard.style.display = "block";
+            dashboard.hidden=false;
 
         }
+
+        // Load Google Profile
+
+        loadAdminProfile(user);
 
     }
 
-    catch (error) {
+    catch(error){
 
-        console.error("Admin Authentication Error:", error);
+        console.error(
+            "Admin Authentication Error:",
+            error
+        );
 
-        window.location.replace("admin-login.html");
+        window.location.replace(
+            "admin-login.html"
+        );
 
     }
 

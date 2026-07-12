@@ -1,17 +1,13 @@
 // ==========================================
-// SILAS FURNITURE
-// ADMIN DASHBOARD CONTROLLER
-// PHASE 3 - PART 3
+// SILAS FURNITURE ADMIN DASHBOARD
+// VERSION 2
+// PART A
 // ==========================================
 
-import { auth } from "./firebase.js";
+// Sidebar
+const sidebar =
+document.querySelector(".sidebar");
 
-import {
-onAuthStateChanged
-}
-from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
-
-// Sidebar buttons
 const sidebarButtons =
 document.querySelectorAll(".sidebar-btn");
 
@@ -19,26 +15,50 @@ document.querySelectorAll(".sidebar-btn");
 const pages =
 document.querySelectorAll(".page");
 
-// Sidebar
-const sidebar =
-document.querySelector(".sidebar");
+// Header
 
-// Toggle
 const menuToggle =
 document.getElementById("menu-toggle");
 
-// Administrator UI
+const dashboardClock =
+document.getElementById("dashboard-clock");
+
+// Administrator
+
 const adminAvatar =
 document.getElementById("admin-avatar");
-
-const adminName =
-document.getElementById("admin-name");
 
 const adminGreeting =
 document.getElementById("admin-greeting");
 
+const adminName =
+document.getElementById("admin-name");
+
 const adminStatus =
 document.getElementById("admin-status");
+
+// ==========================================
+// LIVE CLOCK
+// ==========================================
+
+function updateClock(){
+
+const now = new Date();
+
+dashboardClock.textContent =
+now.toLocaleTimeString([],{
+
+hour:"2-digit",
+
+minute:"2-digit"
+
+});
+
+}
+
+updateClock();
+
+setInterval(updateClock,1000);
 
 // ==========================================
 // GREETING
@@ -49,69 +69,99 @@ function updateGreeting(){
 const hour =
 new Date().getHours();
 
-let greeting="Welcome";
+let greeting = "👋 Welcome";
 
 if(hour<12){
 
 greeting="🌅 Good Morning";
 
-}else if(hour<18){
+}
+
+else if(hour<18){
 
 greeting="☀️ Good Afternoon";
 
-}else{
+}
+
+else{
 
 greeting="🌙 Good Evening";
 
 }
 
-if(adminGreeting){
-
-adminGreeting.textContent=greeting;
-
-}
+adminGreeting.textContent =
+greeting;
 
 }
 
 // ==========================================
-// GOOGLE PROFILE
+// LOAD GOOGLE PROFILE
 // ==========================================
 
-onAuthStateChanged(auth,(user)=>{
+export function loadAdminProfile(user){
 
 if(!user) return;
 
-if(adminAvatar){
+// Avatar
 
-adminAvatar.src=user.photoURL;
+adminAvatar.src =
+user.photoURL ||
+"../images/default-avatar.png";
+
+// Animation
+
+adminAvatar.animate([
+
+{
+
+transform:"scale(.7)",
+
+opacity:.2
+
+},
+
+{
+
+transform:"scale(1)",
+
+opacity:1
 
 }
 
-if(adminName){
+],{
 
-adminName.textContent=user.displayName;
+duration:500,
 
-}
-
-if(adminStatus){
-
-adminStatus.textContent="🟢 Online";
-
-}
-
-updateGreeting();
+fill:"forwards"
 
 });
 
+// Name
+
+adminName.textContent =
+user.displayName ||
+"Administrator";
+
+// Status
+
+adminStatus.textContent =
+"🟢 Online";
+
+// Greeting
+
+updateGreeting();
+
+}
+
 // ==========================================
-// OPEN PAGE
+// PAGE SWITCHER
 // ==========================================
 
-function openPage(pageId,button){
+function openPage(pageId, button){
 
 pages.forEach(page=>{
 
-page.hidden=true;
+page.hidden = true;
 
 page.classList.remove("active-page");
 
@@ -123,16 +173,48 @@ btn.classList.remove("active");
 
 });
 
-const page=
+// Show page
+
+const selectedPage =
 document.getElementById(pageId);
 
-if(page){
+if(selectedPage){
 
-page.hidden=false;
+selectedPage.hidden = false;
 
-page.classList.add("active-page");
+selectedPage.classList.add("active-page");
 
-page.scrollIntoView({
+// Smooth reveal animation
+
+selectedPage.animate([
+
+{
+
+opacity:0,
+
+transform:"translateY(20px)"
+
+},
+
+{
+
+opacity:1,
+
+transform:"translateY(0px)"
+
+}
+
+],{
+
+duration:300,
+
+fill:"forwards"
+
+});
+
+// Scroll to top of workspace
+
+selectedPage.scrollIntoView({
 
 behavior:"smooth",
 
@@ -142,9 +224,13 @@ block:"start"
 
 }
 
+// Highlight active button
+
 button.classList.add("active");
 
-if(window.innerWidth<=768){
+// Auto close sidebar on phones
+
+if(window.innerWidth <= 768){
 
 sidebar.classList.remove("sidebar-open");
 
@@ -153,54 +239,52 @@ sidebar.classList.remove("sidebar-open");
 }
 
 // ==========================================
-// SIDEBAR
+// SIDEBAR BUTTONS
 // ==========================================
 
 sidebarButtons.forEach(button=>{
 
 button.addEventListener("click",()=>{
 
-openPage(
+const pageId =
 
-button.dataset.page,
+button.dataset.page;
 
-button
-
-);
+openPage(pageId,button);
 
 });
 
 });
 
 // ==========================================
-// MENU TOGGLE
+// MOBILE MENU
 // ==========================================
 
 if(menuToggle){
 
-menuToggle.onclick=()=>{
+menuToggle.addEventListener("click",()=>{
 
 sidebar.classList.toggle("sidebar-open");
 
-};
+});
 
 }
 
 // ==========================================
-// CLICK OUTSIDE
+// CLOSE SIDEBAR WHEN CLICKING OUTSIDE
 // ==========================================
 
-document.addEventListener("click",(e)=>{
+document.addEventListener("click",(event)=>{
 
-if(window.innerWidth>768) return;
+if(window.innerWidth > 768) return;
 
 if(
 
-!sidebar.contains(e.target)
+!sidebar.contains(event.target)
 
 &&
 
-!menuToggle.contains(e.target)
+!menuToggle.contains(event.target)
 
 ){
 
@@ -211,55 +295,73 @@ sidebar.classList.remove("sidebar-open");
 });
 
 // ==========================================
-// CLOCK
+// HOVER ANIMATIONS
 // ==========================================
 
-function updateClock(){
+adminAvatar.addEventListener("mouseenter",()=>{
 
-const clock=
-
-document.getElementById("dashboard-clock");
-
-if(!clock) return;
-
-const now=new Date();
-
-clock.textContent=
-
-now.toLocaleTimeString([],{
-
-hour:"2-digit",
-
-minute:"2-digit"
+adminAvatar.style.transform="scale(1.08) rotate(3deg)";
 
 });
 
-}
+adminAvatar.addEventListener("mouseleave",()=>{
 
-setInterval(updateClock,1000);
+adminAvatar.style.transform="scale(1) rotate(0deg)";
 
-updateClock();
+});
 
 // ==========================================
-// START
+// GREETING ANIMATION
+// ==========================================
+
+setInterval(()=>{
+
+adminGreeting.animate([
+
+{
+
+opacity:.5
+
+},
+
+{
+
+opacity:1
+
+}
+
+],{
+
+duration:600
+
+});
+
+},10000);
+
+// ==========================================
+// DEFAULT PAGE
 // ==========================================
 
 window.addEventListener("DOMContentLoaded",()=>{
 
-const defaultButton=
+const firstButton =
 
 document.querySelector(".sidebar-btn.active");
 
-if(defaultButton){
+if(firstButton){
 
 openPage(
 
-defaultButton.dataset.page,
+firstButton.dataset.page,
 
-defaultButton
+firstButton
 
 );
 
 }
 
 });
+
+// ==========================================
+// END OF VERSION 2
+// ==========================================
