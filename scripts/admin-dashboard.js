@@ -1,14 +1,21 @@
 // ==========================================
 // SILAS FURNITURE
 // ADMIN DASHBOARD CONTROLLER
-// PHASE 3 - PART 2
+// PHASE 3 - PART 3
 // ==========================================
+
+import { auth } from "./firebase.js";
+
+import {
+onAuthStateChanged
+}
+from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
 
 // Sidebar buttons
 const sidebarButtons =
 document.querySelectorAll(".sidebar-btn");
 
-// Dashboard pages
+// Pages
 const pages =
 document.querySelectorAll(".page");
 
@@ -16,161 +23,243 @@ document.querySelectorAll(".page");
 const sidebar =
 document.querySelector(".sidebar");
 
-// Menu Toggle
+// Toggle
 const menuToggle =
 document.getElementById("menu-toggle");
+
+// Administrator UI
+const adminAvatar =
+document.getElementById("admin-avatar");
+
+const adminName =
+document.getElementById("admin-name");
+
+const adminGreeting =
+document.getElementById("admin-greeting");
+
+const adminStatus =
+document.getElementById("admin-status");
+
+// ==========================================
+// GREETING
+// ==========================================
+
+function updateGreeting(){
+
+const hour =
+new Date().getHours();
+
+let greeting="Welcome";
+
+if(hour<12){
+
+greeting="🌅 Good Morning";
+
+}else if(hour<18){
+
+greeting="☀️ Good Afternoon";
+
+}else{
+
+greeting="🌙 Good Evening";
+
+}
+
+if(adminGreeting){
+
+adminGreeting.textContent=greeting;
+
+}
+
+}
+
+// ==========================================
+// GOOGLE PROFILE
+// ==========================================
+
+onAuthStateChanged(auth,(user)=>{
+
+if(!user) return;
+
+if(adminAvatar){
+
+adminAvatar.src=user.photoURL;
+
+}
+
+if(adminName){
+
+adminName.textContent=user.displayName;
+
+}
+
+if(adminStatus){
+
+adminStatus.textContent="🟢 Online";
+
+}
+
+updateGreeting();
+
+});
 
 // ==========================================
 // OPEN PAGE
 // ==========================================
 
-function openPage(pageId, button){
+function openPage(pageId,button){
 
-    pages.forEach(page=>{
+pages.forEach(page=>{
 
-        page.hidden = true;
+page.hidden=true;
 
-        page.classList.remove("active-page");
+page.classList.remove("active-page");
 
-    });
+});
 
-    sidebarButtons.forEach(btn=>{
+sidebarButtons.forEach(btn=>{
 
-        btn.classList.remove("active");
+btn.classList.remove("active");
 
-    });
+});
 
-    const selectedPage =
-    document.getElementById(pageId);
+const page=
+document.getElementById(pageId);
 
-    if(selectedPage){
+if(page){
 
-        selectedPage.hidden = false;
+page.hidden=false;
 
-        selectedPage.classList.add("active-page");
+page.classList.add("active-page");
 
-    }
+page.scrollIntoView({
 
-    button.classList.add("active");
+behavior:"smooth",
 
-    // Close sidebar automatically on phones
+block:"start"
 
-    if(window.innerWidth <= 768){
+});
 
-        sidebar.classList.remove("sidebar-open");
+}
 
-    }
+button.classList.add("active");
+
+if(window.innerWidth<=768){
+
+sidebar.classList.remove("sidebar-open");
+
+}
 
 }
 
 // ==========================================
-// SIDEBAR NAVIGATION
+// SIDEBAR
 // ==========================================
 
 sidebarButtons.forEach(button=>{
 
-    button.addEventListener("click",()=>{
+button.addEventListener("click",()=>{
 
-        openPage(
+openPage(
 
-            button.dataset.page,
+button.dataset.page,
 
-            button
+button
 
-        );
+);
 
-    });
+});
 
 });
 
 // ==========================================
-// MOBILE MENU
+// MENU TOGGLE
 // ==========================================
 
 if(menuToggle){
 
-    menuToggle.addEventListener("click",()=>{
+menuToggle.onclick=()=>{
 
-        sidebar.classList.toggle("sidebar-open");
+sidebar.classList.toggle("sidebar-open");
 
-    });
+};
 
 }
 
 // ==========================================
-// CLOSE SIDEBAR WHEN CLICKING OUTSIDE
+// CLICK OUTSIDE
 // ==========================================
 
-document.addEventListener("click",(event)=>{
+document.addEventListener("click",(e)=>{
 
-    if(window.innerWidth > 768) return;
+if(window.innerWidth>768) return;
 
-    if(
+if(
 
-        !sidebar.contains(event.target)
+!sidebar.contains(e.target)
 
-        &&
+&&
 
-        !menuToggle.contains(event.target)
+!menuToggle.contains(e.target)
 
-    ){
+){
 
-        sidebar.classList.remove("sidebar-open");
+sidebar.classList.remove("sidebar-open");
 
-    }
+}
 
 });
 
 // ==========================================
-// WINDOW RESIZE
+// CLOCK
 // ==========================================
 
-window.addEventListener("resize",()=>{
+function updateClock(){
 
-    if(window.innerWidth > 768){
+const clock=
 
-        sidebar.classList.remove("sidebar-open");
+document.getElementById("dashboard-clock");
 
-    }
+if(!clock) return;
+
+const now=new Date();
+
+clock.textContent=
+
+now.toLocaleTimeString([],{
+
+hour:"2-digit",
+
+minute:"2-digit"
 
 });
 
+}
+
+setInterval(updateClock,1000);
+
+updateClock();
+
 // ==========================================
-// DEFAULT PAGE
+// START
 // ==========================================
 
 window.addEventListener("DOMContentLoaded",()=>{
 
-    const defaultButton =
+const defaultButton=
 
-    document.querySelector(".sidebar-btn.active");
+document.querySelector(".sidebar-btn.active");
 
-    if(defaultButton){
+if(defaultButton){
 
-        openPage(
+openPage(
 
-            defaultButton.dataset.page,
+defaultButton.dataset.page,
 
-            defaultButton
+defaultButton
 
-        );
-
-    }
-
-});
-
-// ==========================================
-// FUTURE MODULES PLACEHOLDER
-// ==========================================
-
-function initializeDashboard(){
-
-    console.log(
-
-        "✅ Dashboard Ready"
-
-    );
+);
 
 }
 
-initializeDashboard();
+});
