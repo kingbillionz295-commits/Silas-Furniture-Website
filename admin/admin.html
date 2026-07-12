@@ -5,12 +5,20 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-<title>Silas Furniture Admin</title>
+<title>Silas Furniture | Administrator</title>
 
-<link rel="stylesheet"
-href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
 
 <link rel="stylesheet"
 href="../css/admin.css">
@@ -19,9 +27,9 @@ href="../css/admin.css">
 
 <body>
 
-<!-- ========================= -->
+<!-- ========================================= -->
 <!-- Loading Screen -->
-<!-- ========================= -->
+<!-- ========================================= -->
 
 <div id="admin-loading">
 
@@ -29,7 +37,11 @@ href="../css/admin.css">
 
 <div class="spinner"></div>
 
-<h2>Verifying Administrator...</h2>
+<h2>
+
+Verifying Administrator...
+
+</h2>
 
 <p>
 
@@ -41,89 +53,239 @@ Please wait while we securely verify your credentials.
 
 </div>
 
-<!-- ========================= -->
+<!-- ========================================= -->
 <!-- Dashboard -->
-<!-- ========================= -->
+<!-- ========================================= -->
 
 <div id="admin-dashboard" hidden>
 
-<div class="admin-container">
+<!-- ========================================= -->
+<!-- Header -->
+<!-- ========================================= -->
 
-<!-- Sidebar -->
+<header class="admin-header">
 
-<aside class="sidebar">
+<div class="header-left">
 
-<h2 class="logo">
+<button id="menu-toggle">
 
-SILAS ADMIN
+☰
+
+</button>
+
+<h1>
+
+Silas Furniture
+
+<span>
+
+Administrator
+
+</span>
+
+</h1>
+
+</div>
+
+<div class="header-right">
+
+<button id="notification-btn">
+
+🔔
+
+</button>
+
+<div class="admin-profile">
+
+<img
+
+id="admin-avatar"
+
+src="../images/default-avatar.png"
+
+alt="Administrator"
+
+>
+
+<div class="admin-info">
+
+<h3 id="admin-greeting">
+
+Welcome
+
+</h3>
+
+<h2 id="admin-name">
+
+Loading...
 
 </h2>
 
+<p id="admin-role">
+
+Default Administrator
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</header>
+
+<!-- ========================================= -->
+<!-- Main Container -->
+<!-- ========================================= -->
+
+<div class="admin-layout">
+
+<!-- ========================================= -->
+<!-- Sidebar -->
+<!-- ========================================= -->
+
+<aside class="sidebar">
+
 <nav>
 
-<button class="nav-btn active">
+<button
+class="sidebar-btn active"
+data-page="dashboard-page">
 
-📊 Dashboard
+🏠
 
-</button>
+<span>
 
-<button class="nav-btn">
+Dashboard
 
-📦 Products
-
-</button>
-
-<button class="nav-btn">
-
-🗑 Trash
+</span>
 
 </button>
 
-<button class="nav-btn">
+<button
+class="sidebar-btn"
+data-page="products-page">
 
-🤖 AI Control
+📦
 
-</button>
+<span>
 
-<button class="nav-btn">
+Products
 
-💬 Live Chat
-
-</button>
-
-<button class="nav-btn">
-
-📢 Broadcast
+</span>
 
 </button>
 
-<button class="nav-btn">
+<button
+class="sidebar-btn"
+data-page="media-page">
 
-📬 Messages
+🖼️
 
-</button>
+<span>
 
-<button class="nav-btn">
+Media Library
 
-📈 Analytics
-
-</button>
-
-<button class="nav-btn">
-
-👥 Users
+</span>
 
 </button>
 
-<button class="nav-btn">
+<button
+class="sidebar-btn"
+data-page="comments-page">
 
-🛡 Security Logs
+💬
+
+<span>
+
+Comments
+
+</span>
 
 </button>
 
-<button class="nav-btn">
+<button
+class="sidebar-btn"
+data-page="wishlist-page">
 
-⚙ Settings
+❤️
+
+<span>
+
+Wishlist
+
+</span>
+
+</button>
+
+<button
+class="sidebar-btn"
+data-page="ai-page">
+
+🤖
+
+<span>
+
+AI Center
+
+</span>
+
+</button>
+
+<button
+class="sidebar-btn"
+data-page="analytics-page">
+
+📈
+
+<span>
+
+Analytics
+
+</span>
+
+</button>
+
+<button
+class="sidebar-btn"
+data-page="admins-page">
+
+👥
+
+<span>
+
+Administrators
+
+</span>
+
+</button>
+
+<button
+class="sidebar-btn"
+data-page="security-page">
+
+🛡️
+
+<span>
+
+Security
+
+</span>
+
+</button>
+
+<button
+class="sidebar-btn"
+data-page="settings-page">
+
+⚙️
+
+<span>
+
+Settings
+
+</span>
 
 </button>
 
@@ -131,57 +293,768 @@ SILAS ADMIN
 
 </aside>
 
-<!-- Main Content -->
+<!-- ========================================= -->
+<!-- Workspace -->
+<!-- ========================================= -->
 
-<main class="content">
+<main class="workspace">
 
-<h1>
+<!-- ========================================= -->
+<!-- Dashboard Page -->
+<!-- ========================================= -->
 
-Welcome Administrator 👋
+<section
 
-</h1>
+id="dashboard-page"
 
-<p id="admin-name">
+class="page active-page">
 
-Loading...
+<h2>
+
+Dashboard Overview
+
+</h2>
+
+<p>
+
+Welcome back to the Silas Furniture Administration Center.
 
 </p>
 
-<div class="cards">
+<div class="dashboard-cards">
 
-<div class="card">
+<div class="dashboard-card">
 
-<h3>Products</h3>
+<h3>
 
-<span>0</span>
+Products
 
-</div>
+</h3>
 
-<div class="card">
+<span id="products-count">
 
-<h3>Orders</h3>
+0
 
-<span>0</span>
-
-</div>
-
-<div class="card">
-
-<h3>Comments</h3>
-
-<span>0</span>
+</span>
 
 </div>
 
-<div class="card">
+<div class="dashboard-card">
 
-<h3>Wishlist</h3>
+<h3>
 
-<span>0</span>
+Comments
+
+</h3>
+
+<span id="comments-count">
+
+0
+
+</span>
+
+</div>
+
+<div class="dashboard-card">
+
+<h3>
+
+Wishlist
+
+</h3>
+
+<span id="wishlist-count">
+
+0
+
+</span>
+
+</div>
+
+<div class="dashboard-card">
+
+<h3>
+
+Visitors
+
+</h3>
+
+<span id="visitors-count">
+
+0
+
+</span>
+
+</div>
+
+<div class="dashboard-card">
+
+<h3>
+
+Media
+
+</h3>
+
+<span id="media-count">
+
+0
+
+</span>
+
+</div>
+
+<div class="dashboard-card">
+
+<h3>
+
+Administrators
+
+</h3>
+
+<span id="admins-count">
+
+1
+
+</span>
 
 </div>
 
 </div>
+
+<div class="quick-actions">
+
+<h2>
+
+Quick Actions
+
+</h2>
+
+<div class="action-buttons">
+
+<button>
+
+➕ Upload Furniture
+
+</button>
+
+<button>
+
+🤖 Open AI Center
+
+</button>
+
+<button>
+
+📢 Broadcast Message
+
+</button>
+
+<button>
+
+👥 Manage Administrators
+
+</button>
+
+</div>
+
+</div>
+
+<div class="recent-activity">
+
+<h2>
+
+Recent Activity
+
+</h2>
+
+<div id="activity-list">
+
+<p>
+
+No recent activity yet.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+<!-- ========================================= -->
+<!-- Products Page -->
+<!-- ========================================= -->
+
+<section
+id="products-page"
+class="page"
+hidden>
+
+<h2>
+
+Products Manager
+
+</h2>
+
+<p>
+
+Manage every furniture item displayed on the website.
+
+</p>
+
+<div class="page-actions">
+
+<button>
+
+➕ Add New Furniture
+
+</button>
+
+<button>
+
+📂 Categories
+
+</button>
+
+<button>
+
+🗑 Trash
+
+</button>
+
+</div>
+
+<div class="page-table">
+
+<p>
+
+No furniture available.
+
+</p>
+
+</div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- Media Library -->
+<!-- ========================================= -->
+
+<section
+id="media-page"
+class="page"
+hidden>
+
+<h2>
+
+Media Library
+
+</h2>
+
+<p>
+
+Manage all uploaded images and videos.
+
+</p>
+
+<div class="page-actions">
+
+<button>
+
+🖼 Upload Images
+
+</button>
+
+<button>
+
+🎥 Upload Videos
+
+</button>
+
+<button>
+
+📂 Media Categories
+
+</button>
+
+</div>
+
+<div class="page-table">
+
+<p>
+
+No media uploaded.
+
+</p>
+
+</div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- Comments -->
+<!-- ========================================= -->
+
+<section
+id="comments-page"
+class="page"
+hidden>
+
+<h2>
+
+Comments
+
+</h2>
+
+<p>
+
+Moderate customer comments.
+
+</p>
+
+<div class="page-actions">
+
+<button>
+
+📌 Pin Comment
+
+</button>
+
+<button>
+
+🚫 Hide Comment
+
+</button>
+
+<button>
+
+🗑 Delete Comment
+
+</button>
+
+</div>
+
+<div class="page-table">
+
+<p>
+
+No comments available.
+
+</p>
+
+</div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- Wishlist -->
+<!-- ========================================= -->
+
+<section
+id="wishlist-page"
+class="page"
+hidden>
+
+<h2>
+
+Wishlist
+
+</h2>
+
+<p>
+
+Monitor customers' favourite furniture.
+
+</p>
+
+<div class="page-actions">
+
+<button>
+
+📊 View Statistics
+
+</button>
+
+<button>
+
+📥 Export Data
+
+</button>
+
+</div>
+
+<div class="page-table">
+
+<p>
+
+No wishlist activity yet.
+
+</p>
+
+</div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- AI Center -->
+<!-- ========================================= -->
+
+<section
+id="ai-page"
+class="page"
+hidden>
+
+<h2>
+
+AI Control Center
+
+</h2>
+
+<p>
+
+Manage every Artificial Intelligence feature.
+
+</p>
+
+<div class="dashboard-cards">
+
+<div class="dashboard-card">
+
+<h3>
+
+AI Status
+
+</h3>
+
+<span>
+
+Enabled
+
+</span>
+
+</div>
+
+<div class="dashboard-card">
+
+<h3>
+
+Requests
+
+</h3>
+
+<span>
+
+0
+
+</span>
+
+</div>
+
+<div class="dashboard-card">
+
+<h3>
+
+Responses
+
+</h3>
+
+<span>
+
+0
+
+</span>
+
+</div>
+
+</div>
+
+<div class="page-actions">
+
+<button>
+
+🤖 Open AI
+
+</button>
+
+<button>
+
+⚙ AI Settings
+
+</button>
+
+<button>
+
+📜 AI Logs
+
+</button>
+
+</div>
+
+</section>
+<!-- ========================================= -->
+<!-- Analytics -->
+<!-- ========================================= -->
+
+<section
+id="analytics-page"
+class="page"
+hidden>
+
+<h2>
+
+Analytics
+
+</h2>
+
+<p>
+
+Monitor website performance and visitor engagement.
+
+</p>
+
+<div class="dashboard-cards">
+
+<div class="dashboard-card">
+
+<h3>
+
+Visitors
+
+</h3>
+
+<span>
+
+0
+
+</span>
+
+</div>
+
+<div class="dashboard-card">
+
+<h3>
+
+Views
+
+</h3>
+
+<span>
+
+0
+
+</span>
+
+</div>
+
+<div class="dashboard-card">
+
+<h3>
+
+Shares
+
+</h3>
+
+<span>
+
+0
+
+</span>
+
+</div>
+
+<div class="dashboard-card">
+
+<h3>
+
+AI Requests
+
+</h3>
+
+<span>
+
+0
+
+</span>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- Administrators -->
+<!-- ========================================= -->
+
+<section
+id="admins-page"
+class="page"
+hidden>
+
+<h2>
+
+Administrators
+
+</h2>
+
+<p>
+
+Manage every administrator of the website.
+
+</p>
+
+<div class="page-actions">
+
+<button>
+
+➕ Add Administrator
+
+</button>
+
+<button>
+
+📜 Activity Logs
+
+</button>
+
+<button>
+
+🛡 Permissions
+
+</button>
+
+</div>
+
+<div class="page-table">
+
+<p>
+
+No administrators added yet.
+
+</p>
+
+</div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- Security -->
+<!-- ========================================= -->
+
+<section
+id="security-page"
+class="page"
+hidden>
+
+<h2>
+
+Security Center
+
+</h2>
+
+<p>
+
+Monitor every authentication and security activity.
+
+</p>
+
+<div class="dashboard-cards">
+
+<div class="dashboard-card">
+
+<h3>
+
+Failed Logins
+
+</h3>
+
+<span>
+
+0
+
+</span>
+
+</div>
+
+<div class="dashboard-card">
+
+<h3>
+
+Blocked Emails
+
+</h3>
+
+<span>
+
+0
+
+</span>
+
+</div>
+
+<div class="dashboard-card">
+
+<h3>
+
+Security Alerts
+
+</h3>
+
+<span>
+
+0
+
+</span>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- Settings -->
+<!-- ========================================= -->
+
+<section
+id="settings-page"
+class="page"
+hidden>
+
+<h2>
+
+Website Settings
+
+</h2>
+
+<p>
+
+Configure your business information.
+
+</p>
+
+<div class="page-actions">
+
+<button>
+
+🏢 Business Information
+
+</button>
+
+<button>
+
+🎨 Theme
+
+</button>
+
+<button>
+
+⚙ General Settings
+
+</button>
+
+</div>
+
+</section>
 
 </main>
 
@@ -189,10 +1062,11 @@ Loading...
 
 </div>
 
-<script src="../scripts/admin.js"></script>
-
 <script type="module"
 src="../scripts/admin-auth.js"></script>
+
+<script
+src="../scripts/admin-dashboard.js"></script>
 
 </body>
 
