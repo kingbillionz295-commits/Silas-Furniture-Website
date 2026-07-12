@@ -1,14 +1,24 @@
 // ==========================================
 // SILAS FURNITURE
 // ADMIN DASHBOARD CONTROLLER
-// PHASE 3 - PART 1
+// PHASE 3 - PART 2
 // ==========================================
 
+// Sidebar buttons
 const sidebarButtons =
 document.querySelectorAll(".sidebar-btn");
 
+// Dashboard pages
 const pages =
 document.querySelectorAll(".page");
+
+// Sidebar
+const sidebar =
+document.querySelector(".sidebar");
+
+// Menu Toggle
+const menuToggle =
+document.getElementById("menu-toggle");
 
 // ==========================================
 // OPEN PAGE
@@ -16,25 +26,19 @@ document.querySelectorAll(".page");
 
 function openPage(pageId, button){
 
-    // Remove active page
-
     pages.forEach(page=>{
-
-        page.classList.remove("active-page");
 
         page.hidden = true;
 
-    });
+        page.classList.remove("active-page");
 
-    // Remove active sidebar
+    });
 
     sidebarButtons.forEach(btn=>{
 
         btn.classList.remove("active");
 
     });
-
-    // Show selected page
 
     const selectedPage =
     document.getElementById(pageId);
@@ -47,9 +51,15 @@ function openPage(pageId, button){
 
     }
 
-    // Highlight button
-
     button.classList.add("active");
+
+    // Close sidebar automatically on phones
+
+    if(window.innerWidth <= 768){
+
+        sidebar.classList.remove("sidebar-open");
+
+    }
 
 }
 
@@ -61,12 +71,67 @@ sidebarButtons.forEach(button=>{
 
     button.addEventListener("click",()=>{
 
-        const page =
-        button.dataset.page;
+        openPage(
 
-        openPage(page,button);
+            button.dataset.page,
+
+            button
+
+        );
 
     });
+
+});
+
+// ==========================================
+// MOBILE MENU
+// ==========================================
+
+if(menuToggle){
+
+    menuToggle.addEventListener("click",()=>{
+
+        sidebar.classList.toggle("sidebar-open");
+
+    });
+
+}
+
+// ==========================================
+// CLOSE SIDEBAR WHEN CLICKING OUTSIDE
+// ==========================================
+
+document.addEventListener("click",(event)=>{
+
+    if(window.innerWidth > 768) return;
+
+    if(
+
+        !sidebar.contains(event.target)
+
+        &&
+
+        !menuToggle.contains(event.target)
+
+    ){
+
+        sidebar.classList.remove("sidebar-open");
+
+    }
+
+});
+
+// ==========================================
+// WINDOW RESIZE
+// ==========================================
+
+window.addEventListener("resize",()=>{
+
+    if(window.innerWidth > 768){
+
+        sidebar.classList.remove("sidebar-open");
+
+    }
 
 });
 
@@ -76,19 +141,36 @@ sidebarButtons.forEach(button=>{
 
 window.addEventListener("DOMContentLoaded",()=>{
 
-    const firstButton =
+    const defaultButton =
+
     document.querySelector(".sidebar-btn.active");
 
-    if(firstButton){
+    if(defaultButton){
 
         openPage(
 
-            firstButton.dataset.page,
+            defaultButton.dataset.page,
 
-            firstButton
+            defaultButton
 
         );
 
     }
 
 });
+
+// ==========================================
+// FUTURE MODULES PLACEHOLDER
+// ==========================================
+
+function initializeDashboard(){
+
+    console.log(
+
+        "✅ Dashboard Ready"
+
+    );
+
+}
+
+initializeDashboard();
