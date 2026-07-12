@@ -13,28 +13,19 @@ import {
 // ADMIN AUTHENTICATION V2
 // =====================================
 
-const loading =
-document.getElementById("admin-loading");
+const loading = document.getElementById("admin-loading");
 
-const dashboard =
-document.getElementById("admin-dashboard");
+const dashboard = document.getElementById("admin-dashboard");
 
-const adminName =
-document.getElementById("admin-name");
+const adminName = document.getElementById("admin-name");
 
 onAuthStateChanged(auth, async (user) => {
 
-    // Not logged in
+    // =====================================
+    // USER NOT LOGGED IN
+    // =====================================
+
     if (!user) {
-
-        window.location.replace("admin-login.html");
-
-        return;
-
-    }
-
-    // Didn't come through admin login
-    if (sessionStorage.getItem("adminVerified") !== "true") {
 
         window.location.replace("admin-login.html");
 
@@ -44,19 +35,24 @@ onAuthStateChanged(auth, async (user) => {
 
     try {
 
+        // =====================================
+        // CHECK ADMINS COLLECTION
+        // =====================================
+
         const adminRef = doc(db, "admins", user.email);
 
         const adminSnap = await getDoc(adminRef);
 
-        // Email not found
+        // =====================================
+        // EMAIL NOT FOUND
+        // =====================================
+
         if (!adminSnap.exists()) {
 
             sessionStorage.setItem(
                 "deniedEmail",
                 user.email
             );
-
-            sessionStorage.removeItem("adminVerified");
 
             window.location.replace("access-denied.html");
 
@@ -66,7 +62,10 @@ onAuthStateChanged(auth, async (user) => {
 
         const admin = adminSnap.data();
 
-        // Disabled account
+        // =====================================
+        // ACCOUNT DISABLED
+        // =====================================
+
         if (admin.active !== true) {
 
             sessionStorage.setItem(
@@ -74,15 +73,16 @@ onAuthStateChanged(auth, async (user) => {
                 user.email
             );
 
-            sessionStorage.removeItem("adminVerified");
-
             window.location.replace("access-denied.html");
 
             return;
 
         }
 
-        // Success
+        // =====================================
+        // VERIFIED ADMIN
+        // =====================================
+
         if (adminName) {
 
             adminName.textContent =
@@ -92,21 +92,21 @@ onAuthStateChanged(auth, async (user) => {
 
         if (loading) {
 
-            loading.remove();
+            loading.style.display = "none";
 
         }
 
         if (dashboard) {
 
-            dashboard.hidden = false;
+            dashboard.style.display = "block";
 
         }
 
-    } catch (error) {
+    }
 
-        console.error(error);
+    catch (error) {
 
-        sessionStorage.removeItem("adminVerified");
+        console.error("Admin Authentication Error:", error);
 
         window.location.replace("admin-login.html");
 
