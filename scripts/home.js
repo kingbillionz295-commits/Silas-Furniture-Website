@@ -1,6 +1,23 @@
 import "./auth.js";
 import { showToast } from "./toast.js";
+// ==========================================================
+// FIREBASE
+// ==========================================================
 
+import { db } from "./firebase.js";
+
+import {
+
+    collection,
+
+    query,
+
+    orderBy,
+
+    onSnapshot
+
+}
+from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 // ================================
 // MGE v1.0 HOME ENGINE
 // ================================
@@ -459,3 +476,274 @@ if (logoutMessage) {
     sessionStorage.removeItem("logoutSuccess");
 
 }
+// ==========================================================
+// PHASE 10.1
+// MASTER PRODUCT CARD ENGINE
+// ==========================================================
+
+const productsGrid = document.getElementById("products-grid");
+
+// ------------------------------------------
+// CREATE PRODUCT CARD
+// ------------------------------------------
+
+export function createProductCard(product){
+
+    const card = document.createElement("div");
+
+    card.className = "product-card";
+
+    card.innerHTML = `
+
+        <div class="product-media">
+
+            ${
+                product.mediaType === "video"
+
+                ?
+
+                `<video
+                    class="product-video"
+                    src="${product.media}"
+                    muted
+                    playsinline
+                    preload="metadata">
+                </video>`
+
+                :
+
+                `<img
+                    class="product-image"
+                    src="${product.media}"
+                    alt="${product.title}">`
+
+            }
+
+            <div class="floating-actions">
+
+                <div class="action like-action">
+
+                    <span class="material-symbols-outlined">
+
+                        ♡
+
+                    </span>
+
+                    <strong>${product.likes ?? 0}</strong>
+
+                </div>
+
+                <div class="action comment-action">
+
+                    <span class="material-symbols-outlined">
+
+                        chat
+
+                    </span>
+
+                    <strong>${product.comments ?? 0}</strong>
+
+                </div>
+
+                <div class="action wishlist-action">
+
+                    <span class="material-symbols-outlined">
+
+                        add
+
+                    </span>
+
+                    <small>
+
+                        Wishlist
+
+                    </small>
+
+                </div>
+
+                <div class="menu-wrapper">
+
+                    <button class="menu-dots">
+
+                        <span class="material-symbols-outlined">
+
+                            more_horiz
+
+                        </span>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="views-counter">
+
+                <span class="material-symbols-outlined">
+
+                    visibility
+
+                </span>
+
+                <span>
+
+                    ${product.views ?? 0}
+
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="product-info">
+
+            <h3 class="product-title">
+
+                ${product.title}
+
+            </h3>
+
+            <p class="product-desc">
+
+                ${product.description}
+
+            </p>
+
+            <button class="order-btn">
+
+                Order
+
+            </button>
+
+        </div>
+
+    `;
+
+    return card;
+
+}
+// ======================================================
+// PHASE 10.2
+// BUILD PRODUCT CARD FROM TEMPLATE
+// ======================================================
+
+function createProductCard(product) {
+
+    const template =
+        document.querySelector(".product-card");
+
+    if (!template) return null;
+
+    const card = template.cloneNode(true);
+
+    // Remove any duplicate id if present
+    card.removeAttribute("id");
+
+    // ---------- MEDIA ----------
+
+    const media =
+        card.querySelector(".product-image");
+
+    if (product.type === "image") {
+
+        media.src = product.media;
+
+    } else {
+
+        // temporary thumbnail
+        media.src = product.thumbnail || product.media;
+
+    }
+
+    media.alt = product.name || "Furniture";
+
+    // ---------- TITLE ----------
+
+    const title =
+        card.querySelector(".product-title");
+
+    title.textContent = product.name;
+
+    // ---------- DESCRIPTION ----------
+
+    const desc =
+        card.querySelector(".product-desc");
+
+    desc.textContent = product.description;
+
+    // ---------- ORDER BUTTON ----------
+
+    const order =
+        card.querySelector(".order-btn");
+
+    order.onclick = () => {
+
+        const text = encodeURIComponent(
+`Hello 👋
+
+I'm interested in:
+
+${product.name}
+
+${product.description}`
+        );
+
+        window.open(
+            `https://wa.me/2348038726982?text=${text}`,
+            "_blank"
+        );
+
+    };
+
+    return card;
+
+}
+
+// ==========================================================
+// PHASE 10.5
+// LIVE FIRESTORE GALLERY
+// ==========================================================
+
+const productsCollection = collection(db, "products");
+
+const productsQuery = query(
+
+    productsCollection,
+
+    orderBy("createdAt", "desc")
+
+);
+
+onSnapshot(productsQuery, (snapshot) => {
+
+    productsGrid.innerHTML = "";
+
+    snapshot.forEach((doc) => {
+
+        const product = doc.data();
+
+        const card = createProductCard({
+
+            id: doc.id,
+
+            name: product.name,
+
+            description: product.description,
+
+            media: product.media,
+
+            type: product.type,
+
+            likes: product.likes,
+
+            comments: product.comments,
+
+            views: product.views
+
+        });
+
+        productsGrid.appendChild(card);
+
+    });
+
+});

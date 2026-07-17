@@ -1,0 +1,242 @@
+/* ==========================================================
+   SILAS FURNITURE
+   UNIVERSAL MEDIA VIEWER
+   PHASE 1
+========================================================== */
+
+.media-viewer{
+
+    position:fixed;
+
+    inset:0;
+
+    width:100vw;
+
+    height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:99999;
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transition:.35s ease;
+
+}
+
+/* ========================================== */
+
+.media-viewer.show{
+
+    opacity:1;
+
+    visibility:visible;
+
+}
+
+/* ========================================== */
+
+.media-viewer.hidden{
+
+    opacity:0;
+
+    visibility:hidden;
+
+}
+/* ==========================================
+   BACKDROP
+========================================== */
+
+.viewer-backdrop{
+
+    position:absolute;
+
+    inset:0;
+
+    background:rgba(0,0,0,.82);
+
+    backdrop-filter:blur(10px);
+
+}
+
+/* ==========================================
+   CONTENT
+========================================== */
+
+.viewer-content{
+
+    position:relative;
+
+    width:95vw;
+
+    height:95vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:2;
+
+}
+/* ==========================================
+   IMAGE
+========================================== */
+
+#viewer-image{
+
+    max-width:95%;
+
+    max-height:95%;
+
+    object-fit:contain;
+
+    border-radius:14px;
+
+}
+
+/* ==========================================
+   VIDEO
+========================================== */
+
+#viewer-video{
+
+    max-width:95%;
+
+    max-height:95%;
+
+    object-fit:contain;
+
+    border-radius:14px;
+
+}
+/* ==========================================
+   CLOSE BUTTON
+========================================== */
+
+.viewer-close{
+
+    position:absolute;
+
+    top:20px;
+
+    right:20px;
+
+    width:50px;
+
+    height:50px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.15);
+
+    color:#fff;
+
+    font-size:24px;
+
+    cursor:pointer;
+
+    z-index:5;
+
+}
+
+/* ==========================================
+   FULLSCREEN BUTTON
+========================================== */
+
+.viewer-fullscreen{
+
+    position:absolute;
+
+    bottom:25px;
+
+    right:25px;
+
+    width:50px;
+
+    height:50px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.15);
+
+    color:#fff;
+
+    font-size:22px;
+
+    cursor:pointer;
+
+    z-index:5;
+
+}
+/* ==========================================
+   VIDEO WRAPPERS
+========================================== */
+
+.video-wrapper,
+.viewer-video-wrapper{
+
+    position:relative;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+/* ==========================================
+   CUSTOM PLAY BUTTON
+========================================== */
+
+.video-play-btn{
+display:none;   
+    position:absolute;
+
+    width:72px;
+
+    height:72px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:rgba(0,0,0,.55);
+
+    color:#fff;
+
+    font-size:32px;
+
+    cursor:pointer;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    transition:.25s;
+
+    z-index:10;
+
+}
+
+.video-play-btn:hover{
+
+    transform:scale(1.08);
+
+    background:rgba(0,0,0,.75);
+
+}

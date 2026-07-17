@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- ========================================= -->
+    <!-- BASIC META -->
+    <!-- ========================================= -->
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Products Workspace | Silas Furniture
+    </title>
+
+    <!-- ========================================= -->
+    <!-- GOOGLE FONT -->
+    <!-- ========================================= -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <!-- ========================================= -->
+    <!-- STYLES -->
+    <!-- ========================================= -->
+
+    <link rel="stylesheet"
+          href="../css/products.css">
+
+    <link rel="stylesheet"
+          href="../css/media-viewer.css">
+
+</head>
+
+<body>
+
+<!-- ========================================= -->
+<!-- PRODUCTS WORKSPACE -->
+<!-- ========================================= -->
+
+<main class="workspace">
+
+<!-- ========================================= -->
+<!-- WORKSPACE HEADER -->
+<!-- ========================================= -->
+
+<header class="workspace-header">
+
+    <div class="header-left">
+
+        <a
+            href="admin.html"
+            class="back-button">
+
+            ← Dashboard
+
+        </a>
+
+    </div>
+
+    <div class="header-center">
+
+        <h1>
+
+            Products Workspace
+
+        </h1>
+
+        <p>
+
+            Upload, edit, publish and manage every furniture product.
+
+        </p>
+
+    </div>
+
+</header>
+
+<!-- ========================================= -->
+<!-- UPLOAD MEDIA CARD -->
+<!-- ========================================= -->
+
+<section class="upload-card">
+
+    <div class="card-header">
+
+        <h2>
+
+            Upload Media
+
+        </h2>
+
+        <small>
+
+            Images and videos uploaded here will appear in the gallery.
+
+        </small>
+
+    </div>
+
+    <div class="upload-controls">
+
+        <input
+            type="file"
+            id="media-input"
+            accept="image/*,video/*"
+            hidden>
+
+        <button
+            id="choose-media-btn"
+            class="workspace-btn secondary">
+
+            🖼️ Choose Image / Video
+
+        </button>
+
+        <button
+            id="publish-product-btn"
+            class="workspace-btn primary">
+
+            🚀 Publish Product
+
+        </button>
+
+        <button
+            id="clear-form-btn"
+            class="workspace-btn danger">
+
+            ♻ Clear Form
+
+        </button>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- LIVE PREVIEW CARD -->
+<!-- ========================================= -->
+
+<section class="preview-card">
+
+    <div class="card-header">
+
+        <h2>
+
+            Live Preview
+
+        </h2>
+
+        <small>
+
+            Preview media before publishing.
+
+        </small>
+
+    </div>
+
+    <div
+        id="preview-box"
+        class="preview-box">
+
+        <div id="preview-placeholder">
+
+            <div class="preview-icon">
+
+                🖼️
+
+            </div>
+
+            <h3>
+
+                No Media Selected
+
+            </h3>
+
+            <p>
+
+                Choose an image or video to preview it.
+
+            </p>
+
+        </div>
+
+        <img
+            id="preview-image"
+            hidden
+            alt="Preview">
+
+        <div class="video-wrapper">
+
+            <video
+                id="preview-video"
+                hidden
+                loop
+                playsinline>
+
+            </video>
+
+            <button
+                id="preview-play-btn"
+                class="video-play-btn"
+                style="display:none;">
+
+                ▶
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- PRODUCT INFORMATION -->
+<!-- ========================================= -->
+
+<section class="product-information-card">
+
+    <div class="card-header">
+
+        <h2>
+
+            Product Information
+
+        </h2>
+
+        <small>
+
+            Every product uploaded must contain complete information.
+
+        </small>
+
+    </div>
+
+    <div class="form-group">
+
+        <label>
+
+            Furniture Name
+
+        </label>
+
+        <input
+            id="product-name"
+            type="text"
+            placeholder="Royal Luxury Sofa">
+
+    </div>
+
+    <div class="form-group">
+
+        <label>
+
+            Description
+
+        </label>
+
+        <textarea
+            id="product-description"
+            rows="5"
+            placeholder="Describe this furniture..."></textarea>
+
+    </div>
+
+    <div class="form-group">
+
+        <label>
+
+            Category
+
+        </label>
+
+        <select id="product-category">
+
+            <option value="">
+                Select Category
+            </option>
+
+            <option>
+                Living Room
+            </option>
+
+            <option>
+                Bedroom
+            </option>
+
+            <option>
+                Dining Room
+            </option>
+
+            <option>
+                Office
+            </option>
+
+            <option>
+                Kitchen
+            </option>
+
+            <option>
+                Outdoor
+            </option>
+
+            <option>
+                Wardrobe
+            </option>
+
+            <option>
+                TV Stand
+            </option>
+
+            <option>
+                Custom Furniture
+            </option>
+
+        </select>
+
+    </div>
+
+</section>
+<!-- ========================================= -->
+<!-- RECENTLY UPLOADED PRODUCTS -->
+<!-- ========================================= -->
+
+<section class="recent-products-card">
+
+    <div class="card-header">
+
+        <h2>
+
+            Recently Uploaded
+
+        </h2>
+
+        <small>
+
+            Newly published furniture automatically appears here.
+
+        </small>
+
+    </div>
+
+    <div
+        id="recent-products-grid"
+        class="recent-products-grid">
+
+        <!-- Product Cards Generated Automatically -->
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- QUICK NAVIGATION -->
+<!-- ========================================= -->
+
+<section class="quick-navigation-card">
+
+    <div class="card-header">
+
+        <h2>
+
+            Workspace Navigation
+
+        </h2>
+
+        <small>
+
+            Open other management workspaces.
+
+        </small>
+
+    </div>
+
+    <div class="navigation-grid">
+
+        <a
+            href="trash.html"
+            class="navigation-card">
+
+            <span class="nav-icon">
+
+                🗑️
+
+            </span>
+
+            <h3>
+
+                Trash Bin
+
+            </h3>
+
+            <p>
+
+                Restore or permanently delete removed products.
+
+            </p>
+
+        </a>
+
+        <a
+            href="media.html"
+            class="navigation-card">
+
+            <span class="nav-icon">
+
+                🖼️
+
+            </span>
+
+            <h3>
+
+                Media Workspace
+
+            </h3>
+
+            <p>
+
+                Manage uploaded images and videos.
+
+            </p>
+
+        </a>
+
+        <a
+            href="comments.html"
+            class="navigation-card">
+
+            <span class="nav-icon">
+
+                💬
+
+            </span>
+
+            <h3>
+
+                Comments
+
+            </h3>
+
+            <p>
+
+                Review customer feedback.
+
+            </p>
+
+        </a>
+
+        <a
+            href="analytics.html"
+            class="navigation-card">
+
+            <span class="nav-icon">
+
+                📊
+
+            </span>
+
+            <h3>
+
+                Analytics
+
+            </h3>
+
+            <p>
+
+                Monitor gallery performance.
+
+            </p>
+
+        </a>
+
+        <a
+            href="security.html"
+            class="navigation-card">
+
+            <span class="nav-icon">
+
+                🔒
+
+            </span>
+
+            <h3>
+
+                Security
+
+            </h3>
+
+            <p>
+
+                Administrator security settings.
+
+            </p>
+
+        </a>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- WORKSPACE FOOTER -->
+<!-- ========================================= -->
+
+<footer class="workspace-footer">
+
+    <div class="workspace-note">
+
+        <span>
+
+            💡 Tip
+
+        </span>
+
+        <p>
+
+            Every published product automatically updates the gallery and the administrator dashboard's Recently Uploaded section.
+
+        </p>
+
+    </div>
+
+</footer>
+<!-- ========================================= -->
+<!-- UNIVERSAL FLOATING MEDIA VIEWER -->
+<!-- ========================================= -->
+
+<div
+    id="media-viewer"
+    class="media-viewer hidden">
+
+    <!-- ========================================= -->
+    <!-- DARK BACKDROP -->
+    <!-- ========================================= -->
+
+    <div
+        id="viewer-backdrop"
+        class="viewer-backdrop">
+
+    </div>
+
+    <!-- ========================================= -->
+    <!-- VIEWER CONTENT -->
+    <!-- ========================================= -->
+
+    <div class="viewer-content">
+
+        <!-- Close -->
+
+        <button
+            id="close-viewer"
+            class="viewer-close">
+
+            ✕
+
+        </button>
+
+        <!-- Fullscreen -->
+
+        <button
+            id="fullscreen-btn"
+            class="viewer-fullscreen"
+            hidden>
+
+            ⛶
+
+        </button>
+
+        <!-- Image -->
+
+        <img
+            id="viewer-image"
+            hidden
+            alt="Full Preview">
+
+        <!-- Video -->
+
+        <div class="viewer-video-wrapper">
+
+            <video
+                id="viewer-video"
+                hidden
+                playsinline>
+
+            </video>
+<button
+    id="preview-fullscreen-btn"
+    class="preview-fullscreen-btn"
+    hidden>
+
+    ⛶
+
+</button>
+            <button
+                id="viewer-play-btn"
+                class="video-play-btn"
+                style="display:none;">
+
+                ▶
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+</main>
+
+<!-- ========================================= -->
+<!-- PRODUCT WORKSPACE ENGINE -->
+<!-- ========================================= -->
+
+<script
+    type="module"
+    src="../scripts/product-manager.js">
+
+</script>
+
+</body>
+
+</html>
