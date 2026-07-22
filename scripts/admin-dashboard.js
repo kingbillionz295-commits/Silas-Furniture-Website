@@ -41,25 +41,23 @@ document.getElementById("admin-status");
 // LIVE CLOCK
 // ==========================================
 
-function updateClock(){
+function updateClock() {
 
-const now = new Date();
+    if (!dashboardClock) return;
 
-dashboardClock.textContent =
-now.toLocaleTimeString([],{
+    const now = new Date();
 
-hour:"2-digit",
-
-minute:"2-digit"
-
-});
+    dashboardClock.textContent =
+        now.toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit"
+        });
 
 }
 
 updateClock();
 
-setInterval(updateClock,1000);
-
+setInterval(updateClock, 1000);
 // ==========================================
 // GREETING
 // ==========================================
@@ -89,9 +87,11 @@ greeting="🌙 Good Evening";
 
 }
 
-adminGreeting.textContent =
-greeting;
+if (adminGreeting) {
 
+    adminGreeting.textContent = greeting;
+
+}
 }
 
 // ==========================================
@@ -100,59 +100,48 @@ greeting;
 
 export function loadAdminProfile(user){
 
-if(!user) return;
+    if(!user) return;
 
-// Avatar
+    if(adminAvatar){
 
-adminAvatar.src =
-user.photoURL ||
-"../images/default-avatar.png";
+        adminAvatar.src =
+        user.photoURL ||
+        "../images/default-avatar.png";
 
-// Animation
+        adminAvatar.animate([
+            {
+                transform:"scale(.7)",
+                opacity:.2
+            },
+            {
+                transform:"scale(1)",
+                opacity:1
+            }
+        ],{
+            duration:500,
+            fill:"forwards"
+        });
 
-adminAvatar.animate([
+    }
 
-{
+    if(adminName){
 
-transform:"scale(.7)",
+        adminName.textContent =
+        user.displayName ||
+        "Administrator";
 
-opacity:.2
+    }
 
-},
+    if(adminStatus){
 
-{
+        adminStatus.textContent =
+        "🟢 Online";
 
-transform:"scale(1)",
+    }
 
-opacity:1
-
-}
-
-],{
-
-duration:500,
-
-fill:"forwards"
-
-});
-
-// Name
-
-adminName.textContent =
-user.displayName ||
-"Administrator";
-
-// Status
-
-adminStatus.textContent =
-"🟢 Online";
-
-// Greeting
-
-updateGreeting();
+    updateGreeting();
 
 }
-
 // ==========================================
 // PAGE SWITCHER
 // ==========================================
@@ -298,46 +287,45 @@ sidebar.classList.remove("sidebar-open");
 // HOVER ANIMATIONS
 // ==========================================
 
-adminAvatar.addEventListener("mouseenter",()=>{
+if(adminAvatar){
 
-adminAvatar.style.transform="scale(1.08) rotate(3deg)";
+    adminAvatar.addEventListener("mouseenter",()=>{
 
-});
+        adminAvatar.style.transform =
+        "scale(1.08) rotate(3deg)";
 
-adminAvatar.addEventListener("mouseleave",()=>{
+    });
 
-adminAvatar.style.transform="scale(1) rotate(0deg)";
+    adminAvatar.addEventListener("mouseleave",()=>{
 
-});
+        adminAvatar.style.transform =
+        "scale(1) rotate(0deg)";
 
+    });
+
+}
 // ==========================================
 // GREETING ANIMATION
 // ==========================================
 
-setInterval(()=>{
+if(adminGreeting){
 
-adminGreeting.animate([
+    setInterval(()=>{
 
-{
+        adminGreeting.animate([
+            {
+                opacity:.5
+            },
+            {
+                opacity:1
+            }
+        ],{
+            duration:600
+        });
 
-opacity:.5
-
-},
-
-{
-
-opacity:1
+    },10000);
 
 }
-
-],{
-
-duration:600
-
-});
-
-},10000);
-
 // ==========================================
 // DEFAULT PAGE
 // ==========================================

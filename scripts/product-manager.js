@@ -219,7 +219,11 @@ function loadPreview(file) {
         previewImage.src = mediaURL;
 
         previewImage.hidden = false;
+if (previewFullscreenBtn) {
 
+    previewFullscreenBtn.hidden = true;
+
+}
         previewImage.onclick = () => {
 
             openMedia({
@@ -241,15 +245,22 @@ function loadPreview(file) {
     if (workspace.selectedMediaType === "video") {
 
         previewVideo.src = mediaURL;
-
+previewVideo.load();
         previewVideo.hidden = false;
+if (previewFullscreenBtn) {
 
+    previewFullscreenBtn.hidden = false;
+
+}
         previewVideo.currentTime = 0;
 
         previewVideo.loop = true;
 
-        previewVideo.play().catch(() => {});
+        previewVideo.play().catch(error => {
 
+    console.log("Preview play failed:", error);
+
+});
         // Tap video = Pause
 
         previewVideo.onclick = pausePreviewVideo;
@@ -479,95 +490,85 @@ function validateProduct(){
 // PUBLISH PRODUCT ENGINE
 // ==========================================================
 
-async function publishProduct(){
+async function publishProduct() {
 
-    try{
+    // ------------------------------------------
+    // PREVENT DOUBLE CLICK
+    // ------------------------------------------
 
-        // -----------------------------
-        // VALIDATION
-        // -----------------------------
+    if (workspace.isUploading) return;
 
-        if(!selectedFile){
+    // ------------------------------------------
+    // VALIDATE FORM
+    // ------------------------------------------
 
-            alert("Please choose an image or video.");
+    if (!validateProduct()) return;
 
-            return;
+    try {
 
-        }
+        workspace.isUploading = true;
 
-        if(!productName.value.trim()){
+        publishProductBtn.disabled = true;
 
-            alert("Please enter product name.");
+        publishProductBtn.textContent = "⏳ Uploading...";
 
-            return;
+        // ------------------------------------------
+        // UPLOAD MEDIA
+        // ------------------------------------------
 
-        }
+        const upload = await uploadToCloudinary(
+            workspace.selectedFile
+        );
 
-        if(!productDescription.value.trim()){
+        if (!upload.success) {
 
-            alert("Please enter product description.");
-
-            return;
-
-        }
-
-        // -----------------------------
-        // DISABLE BUTTON
-        // -----------------------------
-
-        publishButton.disabled = true;
-
-        publishButton.textContent = "Uploading"
-
-        // -----------------------------
-        // UPLOAD TO CLOUDINARY
-        // -----------------------------
-
-        const upload = await uploadToCloudinary(selectedFile);
-
-        if(!upload.success){
-
-            throw new Error(upload.message);
+            throw new Error(
+                upload.message || "Upload failed."
+            );
 
         }
 
-        // -----------------------------
+        // ------------------------------------------
         // SAVE TO FIRESTORE
-        // -----------------------------
+        // ------------------------------------------
 
         await addDoc(
 
-            collection(db,"products"),
+            collection(db, "products"),
 
             {
 
-                name:productName.value.trim(),
+                name: productName.value.trim(),
 
-                description:productDescription.value.trim(),
+                description: productDescription.value.trim(),
 
-                category:productCategory.value,
+                category: productCategory.value,
 
-                media:upload.url,
+                mediaURL: upload.url,
 
-                type:upload.resourceType,
+                mediaType: upload.resourceType,
 
-                publicId:upload.publicId,
+                publicId: upload.publicId,
 
-                likes:0,
+                likes: 0,
 
-                comments:0,
+                comments: 0,
 
-                views:0,
+                views: 0,
 
-                createdAt:serverTimestamp()
+                featured: false,
+
+                status: "published",
+
+                createdAt: serverTimestamp()
 
             }
 
         );
 
-        // -----------------------------
+        // ------------------------------------------
         // SUCCESS
-        // -----------------------------
+        // ------------------------------------------
 
         alert("✅ Product Published Successfully!");
 
@@ -575,19 +576,21 @@ async function publishProduct(){
 
     }
 
-    catch(error){
+    catch (error) {
 
         console.error(error);
 
-        alert(error.message);
+        alert(error.message || "Unable to publish product.");
 
     }
 
-    finally{
+    finally {
 
-        publishButton.disabled = false;
+        workspace.isUploading = false;
 
-        publishButton.textContent = "🚀 Publish Product";
+        publishProductBtn.disabled = false;
+
+        publishProductBtn.textContent = "🚀 Publish Product";
 
     }
 
@@ -601,75 +604,7 @@ async function publishProduct(){
 // UPLOAD PRODUCT
 // ------------------------------------------
 
-async function uploadProduct(product){
 
-    if(!workspace.selectedFile){
-
-        throw new Error("No media selected.");
-
-    }
-
-    const formData = new FormData();
-
-    formData.append("file", workspace.selectedFile);
-
-    formData.append(
-        "upload_preset",
-        "YOUR_UPLOAD_PRESET"
-    );
-
-    const cloudName =
-    "YOUR_CLOUD_NAME";
-
-    const endpoint =
-
-`https://api.cloudinary.com/v1_1/${cloudName}/auto/upload`;
-
-    const response =
-
-    await fetch(endpoint,{
-
-        method:"POST",
-
-        body:formData
-
-    });
-
-    if(!response.ok){
-
-        throw new Error("Cloudinary upload failed.");
-
-    }
-
-    const result =
-
-    await response.json();
-
-    // Save URLs
-
-    workspace.uploadedMediaURL =
-    result.secure_url;
-
-    workspace.uploadedThumbnail =
-    result.secure_url;
-
-    // Update product object
-
-    product.mediaURL =
-    workspace.uploadedMediaURL;
-
-    product.thumbnail =
-    workspace.uploadedThumbnail;
-
-    console.log("☁ Upload Successful");
-
-    console.log(product.mediaURL);
-
-    // Next Phase
-
-    await saveProduct(product);
-
-}
 // ==========================================================
 // PHASE 9
 // FIRESTORE SAVE ENGINE
@@ -689,67 +624,71 @@ async function uploadProduct(product){
 // ------------------------------------------
 // SAVE PRODUCT
 // ------------------------------------------
+// ==========================================================
+// PHASE 10.5
+// CLEAR WORKSPACE ENGINE
+// ==========================================================
 
-async function saveProduct(product){
+function clearWorkspace() {
 
-    try{
+    // ------------------------------------------
+    // RESET WORKSPACE STATE
+    // ------------------------------------------
 
-        console.log("🔥 Saving Product...");
+    workspace.selectedFile = null;
 
-        // =====================================
-        // FIRESTORE
-        // (Enable after Firebase connection)
-        // =====================================
+    workspace.selectedMediaType = null;
 
-        /*
-        const docRef = await addDoc(
+    workspace.uploadedMediaURL = "";
 
-            collection(db,"products"),
+    workspace.uploadedThumbnail = "";
 
-            product
+    // ------------------------------------------
+    // CLEAR FORM
+    // ------------------------------------------
 
-        );
+    productName.value = "";
 
-        product.id = docRef.id;
-        */
+    productDescription.value = "";
 
-        // Temporary ID for development
+    productCategory.selectedIndex = 0;
 
-        product.id =
+    mediaInput.value = "";
 
-        "temp_" + Date.now();
+    // ------------------------------------------
+    // RESET PREVIEW
+    // ------------------------------------------
 
-        console.log("✅ Product Saved");
+    previewImage.src = "";
 
-        console.log(product.id);
+    previewImage.hidden = true;
 
-        // ---------------------------------
-        // Next Phase
-        // ---------------------------------
+    previewVideo.pause();
 
-        generateProductCard(product);
+    previewVideo.src = "";
 
-        clearWorkspace();
+    previewVideo.hidden = true;
 
-    }
+    previewPlayBtn.style.display = "none";
 
-    catch(error){
+    previewPlaceholder.hidden = false;
 
-        console.error(
+    // ------------------------------------------
+    // HIDE PREVIEW FULLSCREEN BUTTON
+    // ------------------------------------------
 
-            "Firestore Save Error:",
+    if (previewFullscreenBtn) {
 
-            error
-
-        );
-
-        alert(
-
-            "Unable to save product."
-
-        );
+        previewFullscreenBtn.hidden = true;
 
     }
+
+    console.log("🧹 Workspace Cleared");
 
 }
 
+// ==========================================
+// PUBLISH BUTTON
+// ==========================================
+
+publishProductBtn.addEventListener("click", publishProduct);

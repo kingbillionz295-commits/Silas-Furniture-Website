@@ -31,6 +31,79 @@
     --radius:18px;
 
 }
+/* ===========================================
+LOADING SCREEN
+=========================================== */
+
+#admin-loading{
+
+position:fixed;
+
+inset:0;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+background:#0f0f0f;
+
+z-index:99999;
+
+}
+
+.loading-box{
+
+text-align:center;
+
+}
+
+.spinner{
+
+width:70px;
+
+height:70px;
+
+border-radius:50%;
+
+border:5px solid rgba(255,255,255,.15);
+
+border-top:5px solid #D4AF37;
+
+margin:auto;
+
+animation:spin 1s linear infinite;
+
+}
+
+.loading-box h2{
+
+margin-top:25px;
+
+font-size:24px;
+
+color:white;
+
+}
+
+.loading-box p{
+
+margin-top:10px;
+
+color:#bcbcbc;
+
+}
+
+@keyframes spin{
+
+100%{
+
+transform:rotate(360deg);
+
+}
+
+}
 
 /* ==========================================================
    RESET
@@ -297,25 +370,25 @@ body{
 
 .preview-box{
 
-    position:relative;
+position:relative;
 
-    width:100%;
+width:100%;
 
-    min-height:380px;
+min-height:380px;
 
-    border:2px dashed rgba(200,155,60,.35);
+border:2px dashed rgba(200,155,60,.35);
 
-    border-radius:18px;
+border-radius:18px;
 
-    background:#151515;
+background:#151515;
 
-    display:flex;
+overflow:hidden;
 
-    justify-content:center;
+display:flex;
 
-    align-items:center;
+justify-content:center;
 
-    overflow:hidden;
+align-items:center;
 
 }
 
@@ -373,17 +446,19 @@ body{
 
 #preview-image{
 
-    width:100%;
+position:absolute;
 
-    height:100%;
+inset:0;
 
-    max-height:600px;
+width:100%;
 
-    object-fit:contain;
+height:100%;
 
-    cursor:pointer;
+object-fit:contain;
 
-    background:#000;
+background:#000;
+
+cursor:pointer;
 
 }
 
@@ -393,33 +468,32 @@ body{
 
 .video-wrapper{
 
-    position:relative;
+position:absolute;
 
-    width:100%;
+inset:0;
 
-    display:flex;
+display:flex;
 
-    justify-content:center;
+justify-content:center;
 
-    align-items:center;
+align-items:center;
 
 }
-
 /* ==========================================================
    VIDEO PREVIEW
 ========================================================== */
 
 #preview-video{
 
-    width:100%;
+width:100%;
 
-    max-height:600px;
+height:100%;
 
-    object-fit:contain;
+object-fit:contain;
 
-    background:#000;
+background:#000;
 
-    cursor:pointer;
+cursor:pointer;
 
 }
 
