@@ -492,59 +492,207 @@ const productsGrid = document.getElementById("products-grid");
 // PHASE 10.2
 // BUILD PRODUCT CARD FROM TEMPLATE
 // ======================================================
+// ==========================================
+// ACTIVE VIDEO CONTROLLER
+// ==========================================
 
+let activeVideo = null;
 function createProductCard(product) {
 
-    const template =
-        document.querySelector(".product-card");
+    const card = document.createElement("div");
+    card.className = "product-card";
 
-    if (!template) return null;
+    const isVideo =
+        product.type === "video" ||
+        product.mediaType === "video";
 
-    const card = template.cloneNode(true);
+    card.innerHTML = `
 
-    // Remove any duplicate id if present
-    card.removeAttribute("id");
+<div class="product-media">
+${
+isVideo
+?
 
-    // ---------- MEDIA ----------
+`
+<div class="video-wrapper">
 
-    const media =
-        card.querySelector(".product-image");
+<video
+class="product-video"
+src="${product.media}"
+muted
+playsinline
+preload="metadata">
+</video>
 
-    if (product.type === "image") {
+<div class="play-overlay">
 
-        media.src = product.media;
+<span class="material-symbols-outlined">
+play_circle
+</span>
 
-    } else {
+</div>
 
-        // temporary thumbnail
-        media.src = product.thumbnail || product.media;
+</div>
+`
 
-    }
+:
 
-    media.alt = product.name || "Furniture";
+`
+<img
+class="product-image"
+src="${product.media}"
+alt="${product.name}">
+`
 
-    // ---------- TITLE ----------
+}
 
-    const title =
-        card.querySelector(".product-title");
+<div class="floating-actions">
 
-    title.textContent = product.name;
+<div class="action like-action">
 
-    // ---------- DESCRIPTION ----------
+<span class="material-symbols-outlined">♡</span>
 
-    const desc =
-        card.querySelector(".product-desc");
+<strong>${product.likes ?? 0}</strong>
 
-    desc.textContent = product.description;
+</div>
 
-    // ---------- ORDER BUTTON ----------
+<div class="action comment-action">
 
-    const order =
-        card.querySelector(".order-btn");
+<span class="material-symbols-outlined">chat</span>
 
-    order.onclick = () => {
+<strong>${product.comments ?? 0}</strong>
+
+</div>
+
+<div class="action wishlist-action">
+
+<span class="material-symbols-outlined">add</span>
+
+<small>Wishlist</small>
+
+</div>
+
+<div class="menu-wrapper">
+
+<button class="menu-dots">
+
+<span class="material-symbols-outlined">
+
+more_horiz
+
+</span>
+
+</button>
+
+</div>
+
+</div>
+
+<div class="action-tray">
+
+<button class="close-tray">
+
+<span class="material-symbols-outlined">
+
+close
+
+</span>
+
+</button>
+
+<div class="tray-track">
+
+<button class="tray-action share-action">
+
+<span class="material-symbols-outlined">
+
+forward
+
+</span>
+
+<small>Share</small>
+
+</button>
+
+<button class="tray-action copy-action">
+
+<span class="material-symbols-outlined">
+
+link
+
+</span>
+
+<small>Copy Link</small>
+
+</button>
+
+<button class="tray-action whatsapp-action">
+
+<i class="fa-brands fa-whatsapp"></i>
+
+<small>WhatsApp</small>
+
+</button>
+
+<button class="tray-action call-action">
+
+<span class="material-symbols-outlined">
+
+call
+
+</span>
+
+<small>Call</small>
+
+</button>
+
+</div>
+
+</div>
+
+<div class="views-counter">
+
+<span class="material-symbols-outlined">
+
+visibility
+
+</span>
+
+<span>${product.views ?? 0}</span>
+
+</div>
+
+</div>
+
+<div class="product-info">
+
+<h3 class="product-title">
+
+${product.name}
+
+</h3>
+
+<p class="product-desc">
+
+${product.description}
+
+</p>
+
+<button class="order-btn">
+
+Order
+
+</button>
+
+</div>
+
+`;
+
+    // WhatsApp Order
+    card.querySelector(".order-btn").onclick = () => {
 
         const text = encodeURIComponent(
+
 `Hello 👋
 
 I'm interested in:
@@ -552,14 +700,21 @@ I'm interested in:
 ${product.name}
 
 ${product.description}`
+
         );
 
         window.open(
-            `https://wa.me/2348038726982?text=${text}`,
-            "_blank"
+
+`https://wa.me/2348038726982?text=${text}`,
+
+"_blank"
+
         );
 
     };
+
+    
+initializeProductCard(card);
 
     return card;
 
@@ -585,31 +740,135 @@ onSnapshot(productsQuery, (snapshot) => {
     productsGrid.innerHTML = "";
 
     snapshot.forEach((doc) => {
+const product = doc.data();
 
-        const product = doc.data();
+console.log(product);
+        
 
         const card = createProductCard({
 
-            id: doc.id,
+    id: doc.id,
 
-            name: product.name,
+    name: product.name,
 
-            description: product.description,
+    description: product.description,
 
-            media: product.media,
+    media: product.mediaURL,
 
-            type: product.type,
+    type: product.mediaType,
 
-            likes: product.likes,
+    likes: product.likes ?? 0,
 
-            comments: product.comments,
+    comments: product.comments ?? 0,
 
-            views: product.views
+    views: product.views ?? 0
 
-        });
-
+});
         productsGrid.appendChild(card);
-
+console.log(card.outerHTML);
     });
 
 });
+function initializeProductCard(card){
+
+const tray = card.querySelector(".action-tray");
+const menuBtn = card.querySelector(".menu-dots");
+const closeBtn = card.querySelector(".close-tray");
+const media = card.querySelector(".product-media");
+
+// =====================
+// MENU
+// =====================
+
+menuBtn.addEventListener("click",(e)=>{
+
+e.stopPropagation();
+
+tray.classList.add("show");
+
+media.classList.add("dim");
+
+});
+
+closeBtn.addEventListener("click",()=>{
+
+tray.classList.remove("show");
+
+media.classList.remove("dim");
+
+});
+
+// =====================
+// COMMENT
+// =====================
+
+const commentBtn = card.querySelector(".comment-action");
+
+commentBtn.addEventListener("click",()=>{
+
+commentsPanel.classList.add("show");
+
+});
+
+// =====================
+// VIDEO
+// =====================
+
+const video = card.querySelector("video");
+
+if(video){
+
+const wrapper = card.querySelector(".video-wrapper");
+const overlay = card.querySelector(".play-overlay");
+
+video.addEventListener("click",()=>{
+
+if(activeVideo && activeVideo!==video){
+
+activeVideo.pause();
+
+activeVideo.currentTime=0;
+
+activeVideo.controls=false;
+
+activeVideo.closest(".video-wrapper")
+.classList.remove("playing");
+
+}
+
+if(video.paused){
+
+video.controls=true;
+
+video.muted=false;
+
+video.play();
+
+wrapper.classList.add("playing");
+
+activeVideo=video;
+
+}else{
+
+video.pause();
+
+video.currentTime=0;
+
+video.controls=false;
+
+wrapper.classList.remove("playing");
+
+}
+
+});
+
+video.addEventListener("ended",()=>{
+
+wrapper.classList.remove("playing");
+
+video.currentTime=0;
+
+});
+}
+
+}

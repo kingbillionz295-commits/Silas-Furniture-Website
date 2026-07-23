@@ -391,6 +391,24 @@ PREMIUM PRODUCT CARD V1
     height:320px;
 overflow:hidden;
 }
+.product-image,
+.product-video{
+
+position:absolute;
+
+top:0;
+
+left:0;
+
+width:100%;
+
+height:100%;
+
+object-fit:cover;
+
+z-index:1;
+
+}
 
 .order-btn{
 
@@ -435,7 +453,8 @@ box-shadow:0 8px 20px rgba(0,0,0,.35);
 
 
 
-.product-media img{
+.product-media img,
+.product-media video{
 
 width:100%;
 
@@ -463,7 +482,7 @@ align-items:center;
 
 gap:18px;
 
-z-index:5;
+z-index:20;
 
 }
 
@@ -537,7 +556,7 @@ padding:6px 10px;
 border-radius:25px;
 
 background:rgba(0,0,0,.55);
-
+z-index:auto;
 font-size:12px;
 
 }
@@ -668,7 +687,7 @@ padding:10px;
 
 display:none;
 
-z-index:150;
+z-index:30;
 
 }
 
@@ -1252,5 +1271,68 @@ color:#111;
 #logout-yes:hover{
 
 transform:scale(1.03);
+
+}
+/* ==========================
+PREMIUM VIDEO PLAYER
+========================== */
+
+.video-wrapper{
+
+position:relative;
+
+width:100%;
+
+height:100%;
+
+}
+
+.product-video{
+
+width:100%;
+
+height:100%;
+
+object-fit:cover;
+
+background:black;
+
+cursor:pointer;
+
+}
+
+.play-overlay{
+
+position:absolute;
+
+inset:0;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+pointer-events:none;
+
+transition:.3s;
+
+}
+
+.play-overlay span{
+
+font-size:80px;
+
+color:white;
+
+background:rgba(0,0,0,.35);
+
+border-radius:50%;
+
+}
+
+.video-wrapper.playing .play-overlay{
+
+opacity:0;
 
 }
