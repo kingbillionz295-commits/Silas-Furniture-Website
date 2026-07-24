@@ -1,100 +1,92 @@
-<!-- ========================================================= -->
-<!-- SILAS FURNITURE -->
-<!-- UNIVERSAL MEDIA ENGINE -->
-<!-- VERSION 2 -->
-<!-- CORE COMPONENT -->
-<!-- ========================================================= -->
-
+<!-- ========================================= -->
+<!-- UNIVERSAL MEDIA ENGINE V5 -->
+<!-- ========================================= -->
 
 <div id="media-viewer" class="media-viewer hidden">
 
-    <!-- ================================================ -->
-    <!-- BACKDROP -->
-    <!-- ================================================ -->
+    <!-- Background -->
 
     <div id="viewer-backdrop" class="viewer-backdrop"></div>
 
-    <!-- ================================================ -->
-    <!-- VIEWER CONTAINER -->
-    <!-- ================================================ -->
+    <!-- Main Container -->
 
-    <div class="viewer-container">
+    <div class="viewer-shell">
 
         <!-- Close -->
 
-        <button
-            id="close-viewer"
-            class="viewer-close"
-            aria-label="Close Viewer">
+        <button id="close-viewer" class="viewer-close">
 
-            ✕
+            <span class="material-symbols-outlined">
+                close
+            </span>
 
         </button>
 
-        <!-- ========================= -->
+        <!-- Loading -->
+
+        <div id="viewer-loader" class="viewer-loader">
+
+            <div class="loader-ring"></div>
+
+        </div>
+
         <!-- IMAGE -->
-        <!-- ========================= -->
 
-        <img
-            id="viewer-image"
-            class="viewer-image"
-            hidden
-            draggable="false"
-            alt="Furniture Preview">
+        <div id="image-container" class="image-container">
 
-        <!-- ========================= -->
+            <img
+                id="viewer-image"
+                class="viewer-image"
+                draggable="false"
+                hidden>
+
+        </div>
+
         <!-- VIDEO -->
-        <!-- ========================= -->
 
-        <video
-            id="viewer-video"
-            class="viewer-video"
-            hidden
-            controls
-            preload="metadata"
-            playsinline
-            webkit-playsinline
-            loop>
+        <div id="video-container" class="video-container" hidden>
 
-            Your browser does not support video playback.
+            <video
 
-        </video>
+                id="viewer-video"
 
-        <!-- ========================= -->
-        <!-- FULLSCREEN -->
-        <!-- ========================= -->
+                class="viewer-video"
 
-        <button
-            id="fullscreen-btn"
-            class="fullscreen-btn"
-            hidden
-            aria-label="Fullscreen">
+                playsinline
 
-            ⛶
+                preload="metadata">
 
-        </button>
+            </video>
+
+            <!-- Play -->
+
+            <button id="play-button" class="play-button">
+
+                <span class="material-symbols-outlined">
+
+                    play_circle
+
+                </span>
+
+            </button>
+
+            <!-- Fullscreen -->
+
+            <button id="fullscreen-btn"
+
+                class="fullscreen-btn">
+
+                <span class="material-symbols-outlined">
+
+                    fullscreen
+
+                </span>
+
+            </button>
+
+        </div>
 
     </div>
 
 </div>
 
-<!-- ========================================================= -->
-<!-- FUTURE RESERVED COMPONENTS -->
-<!-- ========================================================= -->
-
-<!--
-VERSION 3
-Pinch Zoom
-
-VERSION 4
-TikTok Vertical Video Mode
-
-VERSION 5
-Gesture Controls
-
-VERSION 6
-Offline Cache
-
-VERSION 7
-AI Smart Preview
--->

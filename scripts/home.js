@@ -1,5 +1,6 @@
 import "./auth.js";
-import { showToast } from "./toast.js";
+'import { showToast } from "./toast.js"';
+import { openMedia } from "./media-viewer.js";
 // ==========================================================
 // FIREBASE
 // ==========================================================
@@ -687,6 +688,10 @@ Order
 </div>
 
 `;
+// ==========================================
+// OPEN PREMIUM MEDIA VIEWER
+// ==========================================
+
 
     // WhatsApp Order
     card.querySelector(".order-btn").onclick = () => {
@@ -715,7 +720,25 @@ ${product.description}`
 
     
 initializeProductCard(card);
+const mediaElement =
+card.querySelector(".product-image") ||
+card.querySelector(".product-video");
 
+if(mediaElement){
+
+mediaElement.addEventListener("click",()=>{
+
+openMedia({
+
+type:isVideo ? "video":"image",
+
+src:product.media
+
+});
+
+});
+
+}
     return card;
 
 }
@@ -811,64 +834,134 @@ commentsPanel.classList.add("show");
 });
 
 // =====================
-// VIDEO
+// PRODUCT DATA
 // =====================
 
-const video = card.querySelector("video");
+const productTitle =
+card.querySelector(".product-title").textContent.trim();
 
-if(video){
+const productDesc =
+card.querySelector(".product-desc").textContent.trim();
 
-const wrapper = card.querySelector(".video-wrapper");
-const overlay = card.querySelector(".play-overlay");
+const productLink =
+window.location.origin +
+"/?product=" +
+encodeURIComponent(productTitle);
 
-video.addEventListener("click",()=>{
+// =====================
+// SHARE
+// =====================
 
-if(activeVideo && activeVideo!==video){
+card.querySelector(".share-action")?.addEventListener("click", async () => {
 
-activeVideo.pause();
+    // Check browser support first
+    if (!navigator.share) {
 
-activeVideo.currentTime=0;
+        showToast("⚠", "Sharing is not supported in this browser.");
 
-activeVideo.controls=false;
+        console.log("❌ navigator.share is NOT supported.");
 
-activeVideo.closest(".video-wrapper")
-.classList.remove("playing");
+        return;
 
-}
+    }
 
-if(video.paused){
+    try {
 
-video.controls=true;
+        await navigator.share({
 
-video.muted=false;
+            title: productTitle,
 
-video.play();
+            text:
+`${productTitle}
 
-wrapper.classList.add("playing");
+${productDesc}
 
-activeVideo=video;
+${productLink}`,
 
-}else{
+            url: productLink
 
-video.pause();
+        });
 
-video.currentTime=0;
+        showToast("✔", "Share completed successfully.");
 
-video.controls=false;
+    }
 
-wrapper.classList.remove("playing");
+    catch (err) {
 
-}
+        if (err.name === "AbortError") {
+
+            showToast("ℹ", "Share cancelled.");
+
+            console.log("User cancelled sharing.");
+
+        } else {
+
+            showToast("❌", "Unable to share this product.");
+
+            console.error(err);
+
+        }
+
+    }
+
+});
+// =====================
+// COPY
+// =====================
+
+card.querySelector(".copy-action")?.addEventListener("click",async()=>{
+
+await navigator.clipboard.writeText(productLink);
+
+showToast("✔","Product link copied");
 
 });
 
-video.addEventListener("ended",()=>{
+// =====================
+// WHATSAPP
+// =====================
 
-wrapper.classList.remove("playing");
+card.querySelector(".whatsapp-action")?.addEventListener("click",()=>{
 
-video.currentTime=0;
+const phone="2348038726982";
+
+const message=encodeURIComponent(
+
+`Hello 👋
+
+I'm interested in this furniture.
+
+🪑 Product:
+${productTitle}
+
+📝 Description:
+${productDesc}
+
+🔗 Link:
+${productLink}
+
+Can I get the price and more details?
+Thank you.`
+
+);
+
+window.open(
+
+`https://wa.me/${phone}?text=${message}`,
+
+"_blank"
+
+);
 
 });
-}
 
+// =====================
+// CALL
+// =====================
+
+card.querySelector(".call-action")?.addEventListener("click",()=>{
+
+window.location.href="tel:+2348038726982";
+
+});
 }
