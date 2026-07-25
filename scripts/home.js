@@ -1,5 +1,5 @@
 import "./auth.js";
-'import { showToast } from "./toast.js"';
+import { showToast } from "./toast.js";
 import { openMedia } from "./media-viewer.js";
 // ==========================================================
 // FIREBASE

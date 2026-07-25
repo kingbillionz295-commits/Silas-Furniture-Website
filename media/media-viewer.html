@@ -1,92 +1,171 @@
-<!-- ========================================= -->
-<!-- UNIVERSAL MEDIA ENGINE V5 -->
-<!-- ========================================= -->
+<!-- ========================================================= -->
+<!-- SILAS FURNITURE -->
+<!-- UNIVERSAL MEDIA VIEWER V6 -->
+<!-- CORE COMPONENT -->
+<!-- ========================================================= -->
+
 
 <div id="media-viewer" class="media-viewer hidden">
 
-    <!-- Background -->
 
-    <div id="viewer-backdrop" class="viewer-backdrop"></div>
+    <!-- =============================== -->
+    <!-- DARK BACKDROP -->
+    <!-- =============================== -->
 
-    <!-- Main Container -->
+    <div 
+        id="viewer-backdrop"
+        class="viewer-backdrop">
+    </div>
 
-    <div class="viewer-shell">
 
-        <!-- Close -->
 
-        <button id="close-viewer" class="viewer-close">
+    <!-- =============================== -->
+    <!-- VIEWER WINDOW -->
+    <!-- =============================== -->
 
-            <span class="material-symbols-outlined">
-                close
-            </span>
+    <div class="viewer-window">
+
+
+        <!-- CLOSE BUTTON -->
+
+        <button
+            id="viewer-close"
+            class="viewer-close">
+
+            ✕
 
         </button>
 
-        <!-- Loading -->
 
-        <div id="viewer-loader" class="viewer-loader">
 
-            <div class="loader-ring"></div>
+        <!-- =============================== -->
+        <!-- IMAGE AREA -->
+        <!--"" =============================== -->
 
-        </div>
+        <div 
+            id="image-stage"
+            class="image-stage hidden">
 
-        <!-- IMAGE -->
-
-        <div id="image-container" class="image-container">
 
             <img
                 id="viewer-image"
                 class="viewer-image"
                 draggable="false"
-                hidden>
+                alt="Furniture preview">
+
 
         </div>
 
-        <!-- VIDEO -->
 
-        <div id="video-container" class="video-container" hidden>
+
+
+        <!-- =============================== -->
+        <!-- VIDEO AREA -->
+        <!-- =============================== -->
+
+        <div
+            id="video-stage"
+            class="video-stage hidden">
+
 
             <video
-
                 id="viewer-video"
-
                 class="viewer-video"
-
                 playsinline
-
                 preload="metadata">
 
             </video>
 
-            <!-- Play -->
 
-            <button id="play-button" class="play-button">
 
-                <span class="material-symbols-outlined">
+            <!-- PLAY BUTTON -->
 
-                    play_circle
+            <button
+                id="video-play-btn"
+                class="video-play-btn">
 
-                </span>
-
-            </button>
-
-            <!-- Fullscreen -->
-
-            <button id="fullscreen-btn"
-
-                class="fullscreen-btn">
-
-                <span class="material-symbols-outlined">
-
-                    fullscreen
-
-                </span>
+                ▶
 
             </button>
+
+
+
+
+            <!-- VIDEO CONTROLS -->
+
+            <div
+                id="video-controls"
+                class="video-controls">
+
+
+                <input
+                    id="video-progress"
+                    class="video-progress"
+                    type="range"
+                    min="0"
+                    max="100"
+                    value="0">
+
+
+
+                <button
+                    id="video-fullscreen-btn"
+                    class="video-fullscreen-btn">
+
+                    ⛶
+
+                </button>
+
+
+            </div>
+
+
+
+            <!-- SPEED / SEEK OVERLAY -->
+
+            <div
+                id="video-gesture-layer"
+                class="video-gesture-layer">
+
+
+                <div
+                    id="seek-left"
+                    class="seek-zone left">
+                </div>
+
+
+
+                <div
+                    id="seek-right"
+                    class="seek-zone right">
+                </div>
+
+
+            </div>
+
+
 
         </div>
 
+
+
+        <!-- LOADING -->
+
+        <div
+            id="viewer-loader"
+            class="viewer-loader">
+
+
+            <div class="spinner"></div>
+
+
+        </div>
+
+
+
     </div>
 
-</div>
 
+
+</div>
+<div id="viewer-toast" class="viewer-toast"></div>

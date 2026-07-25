@@ -1,508 +1,243 @@
-// =============================================
-// UNIVERSAL MEDIA ENGINE V5
-// PART 1
-// =============================================
+// ==========================================================
+// SILAS FURNITURE
+// MEDIA ENGINE V8
+// PART 1 — FOUNDATION
+// ==========================================================
 
-console.log("🔥 Media Engine V5");
+console.log("🚀 Media Engine V8 Started");
 
-// ==============================
+// ==========================================================
+// SAFE DOM
+// ==========================================================
+
+const $ = (id) => document.getElementById(id);
+
+// ==========================================================
 // DOM
-// ==============================
+// ==========================================================
 
-const viewer =
-document.getElementById("media-viewer");
+const viewer = $("media-viewer");
+const backdrop = $("viewer-backdrop");
 
-const backdrop =
-document.getElementById("viewer-backdrop");
+const image = $("viewer-image");
+const video = $("viewer-video");
 
-const shell =
-document.querySelector(".viewer-shell");
+const imageContainer = $("image-container");
+const videoContainer = $("video-container");
 
-const imageContainer =
-document.getElementById("image-container");
+const loader = $("viewer-loader");
 
-const videoContainer =
-document.getElementById("video-container");
+const playButton = $("play-button");
+const fullscreenButton = $("fullscreen-btn");
+const closeButton = $("close-viewer");
 
-const image =
-document.getElementById("viewer-image");
+// ==========================================================
+// STATE
+// ==========================================================
 
-const video =
-document.getElementById("viewer-video");
+const state = {
 
-const loader =
-document.getElementById("viewer-loader");
+    opened:false,
 
-const playButton =
-document.getElementById("play-button");
+    mode:null,
 
-const fullscreenButton =
-document.getElementById("fullscreen-btn");
+    src:null,
 
-const closeButton =
-document.getElementById("close-viewer");
+    zoom:1,
 
-// ==============================
+    translateX:0,
 
-let mediaType = null;
+    translateY:0,
 
-let currentSource = null;
+    playbackTime:0,
 
-// ==============================
+    isFullscreen:false
+
+};
+
+// ==========================================================
+// READY
+// ==========================================================
+
+const engineReady =
+
+viewer &&
+backdrop &&
+image &&
+video;
+
+console.log("Media Engine Ready:",engineReady);
+
+// ==========================================================
 // OPEN
-// ==============================
+// ==========================================================
 
 export function openMedia(media){
 
-if(!media) return;
+    if(!engineReady) return;
 
-mediaType = media.type;
+    if(!media) return;
 
-currentSource = media.src;
+    state.mode = media.type;
 
-viewer.classList.remove("hidden");
+    state.src = media.src;
 
-requestAnimationFrame(()=>{
+    state.opened = true;
 
-viewer.classList.add("show");
+    viewer.classList.remove("hidden");
 
-});
+    requestAnimationFrame(()=>{
 
-document.body.style.overflow="hidden";
+        viewer.classList.add("show");
 
-loader.classList.add("show");
+    });
 
-if(media.type==="image"){
-
-openImage(media.src);
-
-}else{
-
-openVideo(media.src);
+    document.body.style.overflow = "hidden";
 
 }
 
-}
-
-// ==============================
+// ==========================================================
 // CLOSE
-// ==============================
+// ==========================================================
 
 export function closeMedia(){
 
-viewer.classList.remove("show");
+    if(!engineReady) return;
 
-setTimeout(()=>{
+    viewer.classList.remove("show");
 
-viewer.classList.add("hidden");
+    setTimeout(()=>{
 
-},250);
+        viewer.classList.add("hidden");
 
-document.body.style.overflow="";
+    },250);
 
-image.hidden=true;
-
-video.hidden=true;
-
-video.pause();
-
-video.removeAttribute("src");
-
-video.load();
-
-playButton.style.display="none";
-
-fullscreenButton.style.display="none";
-
-loader.classList.remove("show");
+    document.body.style.overflow="";
 
 }
 
-// ==============================
-// IMAGE
-// ==============================
+// ==========================================================
+// EVENTS
+// ==========================================================
 
-function openImage(src){
+backdrop?.addEventListener(
 
-videoContainer.hidden=true;
+"click",
 
-imageContainer.hidden=false;
+closeMedia
 
-image.hidden=false;
+);
 
-image.onload=()=>{
+closeButton?.addEventListener(
 
-loader.classList.remove("show");
+"click",
 
-};
+closeMedia
 
-image.src=src;
+);
 
-}
+document.addEventListener(
 
-// ==============================
-// VIDEO
-// ==============================
+"keydown",
 
-function openVideo(src){
+(event)=>{
 
-imageContainer.hidden=true;
+    if(event.key==="Escape"){
 
-videoContainer.hidden=false;
+        closeMedia();
 
-video.hidden=false;
-
-playButton.style.display="flex";
-
-fullscreenButton.style.display="flex";
-
-video.src=src;
-
-video.load();
-
-video.addEventListener("loadeddata",()=>{
-
-loader.classList.remove("show");
-
-},{once:true});
-
-}
-
-// ==============================
-// CLOSE EVENTS
-// ==============================
-
-backdrop.onclick=closeMedia;
-
-closeButton.onclick=closeMedia;
-
-document.addEventListener("keydown",(e)=>{
-
-if(e.key==="Escape"){
-
-closeMedia();
-
-}
+    }
 
 });
-
-// =============================================
+// ==========================================================
 // PART 2
-// PLAY / PAUSE
-// =============================================
+// IMAGE ENGINE
+// ==========================================================
 
-playButton.onclick = ()=>{
+// ------------------------------------------
+// LOADER
+// ------------------------------------------
 
-if(video.paused){
+function showLoader(){
 
-video.controls = true;
-
-video.muted = false;
-
-video.play();
-
-playButton.style.opacity="0";
-
-setTimeout(()=>{
-
-playButton.style.display="none";
-
-},250);
-
-}else{
-
-video.pause();
-
-playButton.style.display="flex";
-
-requestAnimationFrame(()=>{
-
-playButton.style.opacity="1";
-
-});
+    loader?.classList.add("show");
 
 }
 
-};
+function hideLoader(){
 
-// =============================================
-// SHOW PLAY BUTTON AGAIN
-// =============================================
-
-video.addEventListener("pause",()=>{
-
-playButton.style.display="flex";
-
-requestAnimationFrame(()=>{
-
-playButton.style.opacity="1";
-
-});
-
-});
-
-video.addEventListener("ended",()=>{
-
-playButton.style.display="flex";
-
-playButton.style.opacity="1";
-
-});
-
-// =============================================
-// FULLSCREEN
-// =============================================
-
-fullscreenButton.onclick = async()=>{
-
-try{
-
-if(document.fullscreenElement){
-
-await document.exitFullscreen();
-
-}else{
-
-await video.requestFullscreen();
+    loader?.classList.remove("show");
 
 }
 
-}catch(err){
+// ------------------------------------------
+// SHOW IMAGE
+// ------------------------------------------
 
-console.log(err);
+function showImage(src){
 
-}
+    if(!image) return;
 
-};
+    // hide video
+    video.hidden = true;
+    video.pause();
 
-// =============================================
-// PLAYBACK MEMORY
-// =============================================
+    imageContainer.hidden = false;
+    videoContainer.hidden = true;
 
-let playbackTime = 0;
+    image.hidden = false;
 
-video.addEventListener("timeupdate",()=>{
+    playButton.hidden = true;
+    fullscreenButton.hidden = true;
 
-playbackTime = video.currentTime;
+    showLoader();
 
-});
+    image.style.opacity = "0";
+    image.style.transform = "scale(.96)";
 
-document.addEventListener("fullscreenchange",()=>{
+    image.onload = ()=>{
 
-if(!document.fullscreenElement){
+        hideLoader();
 
-setTimeout(()=>{
+        requestAnimationFrame(()=>{
 
-video.currentTime = playbackTime;
+            image.style.transition =
+            "opacity .25s ease, transform .25s ease";
 
-},100);
+            image.style.opacity = "1";
 
-}
+            image.style.transform = "scale(1)";
 
-});
+        });
 
-// =============================================
-// LOADING
-// =============================================
+    };
 
-video.addEventListener("waiting",()=>{
+    image.onerror = ()=>{
 
-loader.classList.add("show");
+        hideLoader();
 
-});
+        console.warn("Image failed to load");
 
-video.addEventListener("playing",()=>{
+    };
 
-loader.classList.remove("show");
-
-});
-
-// =============================================
-// IMAGE TAP
-// =============================================
-
-image.onclick = ()=>{
-
-closeMedia();
-
-};
-// =============================================
-// PART 3
-// PREMIUM IMAGE ENGINE
-// =============================================
-
-let scale = 1;
-let translateX = 0;
-let translateY = 0;
-
-let startX = 0;
-let startY = 0;
-
-let dragging = false;
-
-// ----------------------------
-// Apply Transform
-// ----------------------------
-
-function updateImageTransform(){
-
-image.style.transform =
-`translate(${translateX}px,${translateY}px)
-scale(${scale})`;
+    image.src = src;
 
 }
 
-// ----------------------------
-// Double Tap Zoom
-// ----------------------------
+// ------------------------------------------
+// CONNECT TO OPEN
+// ------------------------------------------
 
-let lastTap = 0;
+const oldOpenMedia = openMedia;
 
-image.addEventListener("click",()=>{
+openMedia = function(media){
 
-const now = Date.now();
+    oldOpenMedia(media);
 
-if(now-lastTap<300){
+    if(media.type==="image"){
 
-if(scale===1){
+        showImage(media.src);
 
-scale=2;
-
-}else{
-
-scale=1;
-
-translateX=0;
-
-translateY=0;
-
-}
-
-updateImageTransform();
-
-}
-
-lastTap=now;
-
-});
-
-// ----------------------------
-// Drag
-// ----------------------------
-
-image.addEventListener("pointerdown",(e)=>{
-
-if(scale<=1)return;
-
-dragging=true;
-
-startX=e.clientX-translateX;
-
-startY=e.clientY-translateY;
-
-image.style.cursor="grabbing";
-
-});
-
-window.addEventListener("pointermove",(e)=>{
-
-if(!dragging)return;
-
-translateX=e.clientX-startX;
-
-translateY=e.clientY-startY;
-
-updateImageTransform();
-
-});
-
-window.addEventListener("pointerup",()=>{
-
-dragging=false;
-
-image.style.cursor="grab";
-
-});
-
-// ----------------------------
-// Mouse Wheel Zoom
-// (Desktop Testing)
-// ----------------------------
-
-image.addEventListener("wheel",(e)=>{
-
-e.preventDefault();
-
-if(e.deltaY<0){
-
-scale+=0.15;
-
-}else{
-
-scale-=0.15;
-
-}
-
-scale=Math.max(1,Math.min(scale,4));
-
-if(scale===1){
-
-translateX=0;
-
-translateY=0;
-
-}
-
-updateImageTransform();
-
-});
-
-// ----------------------------
-// Swipe Down Close
-// ----------------------------
-
-let swipeStartY=0;
-
-image.addEventListener("touchstart",(e)=>{
-
-swipeStartY=e.touches[0].clientY;
-
-});
-
-image.addEventListener("touchend",(e)=>{
-
-const endY=e.changedTouches[0].clientY;
-
-if(endY-swipeStartY>120 && scale===1){
-
-closeMedia();
-
-}
-
-});
-
-// =============================================
-// RESET EVERYTHING
-// =============================================
-
-function resetViewer(){
-
-scale=1;
-
-translateX=0;
-
-translateY=0;
-
-updateImageTransform();
-
-}
-
-const oldClose = closeMedia;
-
-closeMedia = function(){
-
-resetViewer();
-
-oldClose();
+    }
 
 };
